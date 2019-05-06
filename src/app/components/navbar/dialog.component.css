@@ -1,0 +1,24 @@
+.titulo{
+    color: aqua;
+}
+/* 
+.contenido{
+    position: relative;
+    align-items: center;
+} */
+
+.principal{
+    text-align: center;
+}
+
+.entrar{
+    width: 100%;
+    color: aliceblue;
+    background-color: blue;
+}
+
+.vertical-divider {
+      /* padding-inline-start: 6%;
+      padding-inline-end: 3%; */
+      margin-top: 10%;
+  }

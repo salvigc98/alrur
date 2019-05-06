@@ -1,0 +1,27 @@
+<div class="principal">
+<h2 mat-dialog-title class="titulo">Acceder con tu cuenta</h2>
+<mat-dialog-content class="contenido">
+    <mat-form-field>
+        <input matInput value="" placeholder="Usuario" #message class="input">
+    </mat-form-field>
+    <!-- <div class="vertical-divider"></div> -->
+    <mat-form-field>
+        <input matInput value="" placeholder="Contraseña" #message2 class="input">
+    </mat-form-field>
+    <!-- <br> -->
+    <!-- <div class="vertical-divider"></div> -->
+    <div>
+    <a [href]="url">¿Olvidaste la contraseña?</a>
+    </div>
+    
+</mat-dialog-content>
+<div class="vertical-divider"></div>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true" (click)="save()" class="entrar">Entrar</button>
+</mat-dialog-actions>
+<div class="vertical-divider"></div>
+<!-- <br><br> -->
+<div>
+    <a [href]="url" >Crea una cuenta</a>
+</div>
+</div>

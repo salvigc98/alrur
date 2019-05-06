@@ -1,0 +1,38 @@
+/* .example-icon {
+    padding: 0 14px;
+  } */
+  
+  .remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
+
+  .space {
+    padding: 1%;
+  }
+
+  .mat-toolbar {
+    height: 100px !important;
+    min-height: 100px !important;
+  }
+
+  .mat-button{
+    margin-top: 35px;
+    font-size: 20px;
+    background-color: aquamarine;
+  }
+
+  .mat-form-field{
+   margin-top: 35px;
+  }
+
+  /* .mat-toolbar-row{
+    align-items: center;
+  } */
+
+  .icono{
+    width: 80px;
+    height: 80px;
+    margin-top: 35px;
+  }
