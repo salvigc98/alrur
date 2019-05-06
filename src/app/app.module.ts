@@ -4,7 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { Dialogo } from './components/navbar/navbar.component'
+import { LoginComponent } from './components/navbar/login/login.component';
+// import { Dialogo } from './components/navbar/navbar.component'
 
 // Angular material componentes
 
@@ -17,11 +18,13 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    Dialogo
+    // Dialogo,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,6 @@ import {MatDialogModule} from '@angular/material/dialog';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [Dialogo]
+  entryComponents: [LoginComponent]
 })
 export class AppModule { }

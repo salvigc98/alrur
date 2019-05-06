@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { LoginComponent } from '../navbar/login/login.component';
 
 export interface DialogData {
 }
@@ -32,7 +33,7 @@ export class NavbarComponent implements OnInit {
   // };
 
 
-    this.dialog.open(Dialogo, dialogConfig);
+    this.dialog.open(LoginComponent, dialogConfig);
 }
 
     // dialogRef.afterClosed().subscribe(result => {
@@ -49,41 +50,41 @@ export class NavbarComponent implements OnInit {
 
 }
 
-@Component({
-  // selector: 'dialog',
-  templateUrl: 'dialog.component.html',
-  styleUrls: ['./dialog.component.css']
-})
-export class Dialogo{
+// @Component({
+//   // selector: 'dialog',
+//   templateUrl: 'dialog.component.html',
+//   styleUrls: ['./dialog.component.css']
+// })
+// export class Dialogo{
 
-  form: FormGroup;
-    description:string;
+//   form: FormGroup;
+//     description:string;
 
-    constructor(
-        private fb: FormBuilder,
-        private dialogRef: MatDialogRef<Dialogo>,
-        // @Inject(MAT_DIALOG_DATA) data
-        ) {
+//     constructor(
+//         private fb: FormBuilder,
+//         private dialogRef: MatDialogRef<Dialogo>,
+//         // @Inject(MAT_DIALOG_DATA) data
+//         ) {
 
-        // this.description = data.description;
-    }
+//         // this.description = data.description;
+//     }
 
-    // ngOnInit() {
-    //     this.form = this.fb.group({
-    //         description: [this.description, []]
-    //     });
-    // }
+//     // ngOnInit() {
+//     //     this.form = this.fb.group({
+//     //         description: [this.description, []]
+//     //     });
+//     // }
 
-    save() {
-        // this.dialogRef.close(this.form.value);
-        console.log('funciona');
-    }
+//     save() {
+//         // this.dialogRef.close(this.form.value);
+//         console.log('funciona');
+//     }
 
-    close() {
-        this.dialogRef.close();
-    }
+//     close() {
+//         this.dialogRef.close();
+//     }
 
-}
+// }
 
 
 
