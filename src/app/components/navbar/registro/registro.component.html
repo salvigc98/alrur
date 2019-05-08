@@ -1,0 +1,36 @@
+<div class="principal">
+  <h2 mat-dialog-title class="titulo">Crea una cuenta</h2>
+  <mat-dialog-content class="contenido">
+      <mat-form-field>
+          <input matInput value="" placeholder="Nombre público" #message class="input">
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput value="" placeholder="Nombre" #message class="input">
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput value="" placeholder="Apellidos" #message class="input">
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput value="" placeholder="Contraseña" #message class="input">
+      </mat-form-field>
+      <!-- <div class="vertical-divider"></div> -->
+      <mat-form-field>
+          <input matInput value="" placeholder="Correo electrónico" #message2 class="input">
+      </mat-form-field>
+      <!-- <br> -->
+      <!-- <div class="vertical-divider"></div> -->
+      <!-- <div>
+      <h4 class="pointer">¿Olvidaste la contraseña?</h4>
+      </div> -->
+      
+  </mat-dialog-content>
+  <!-- <div class="vertical-divider"></div> -->
+  <mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true" (click)="save()" class="entrar">Registrarse</button>
+  </mat-dialog-actions>
+  <!-- <div class="vertical-divider"></div> -->
+  <!-- <br><br> -->
+  <!-- <div>
+      <h4 class="pointer" (click)="crearCuenta()">Crea una cuenta</h4>
+  </div> -->
+  </div>

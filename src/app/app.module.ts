@@ -2,9 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
+
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/navbar/login/login.component';
+import { RegistroComponent } from './components/navbar/registro/registro.component';
+
 // import { Dialogo } from './components/navbar/navbar.component'
 
 // Angular material componentes
@@ -24,9 +29,12 @@ import {MatDialogModule} from '@angular/material/dialog';
     AppComponent,
     NavbarComponent,
     // Dialogo,
-    LoginComponent
+    LoginComponent,
+    RegistroComponent,
+    HomeComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     MatToolbarModule,
     MatSelectModule,
@@ -41,6 +49,9 @@ import {MatDialogModule} from '@angular/material/dialog';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent]
+  entryComponents: [
+    LoginComponent,
+    RegistroComponent
+  ]
 })
 export class AppModule { }

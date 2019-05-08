@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog,MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { RegistroComponent } from '../registro/registro.component';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    public dialog: MatDialog,
       private dialogRef: MatDialogRef<LoginComponent>,
       // @Inject(MAT_DIALOG_DATA) data
   ) {
@@ -38,6 +40,26 @@ export class LoginComponent implements OnInit {
 
   close() {
       this.dialogRef.close();
+  }
+
+  crearCuenta(){
+    // console.log('crea');
+    this.dialogRef.close();
+    const dialogConfig = new MatDialogConfig();
+
+    // dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.width = "350px";
+    dialogConfig.height = "500px";
+
+    // dialogConfig.data = {
+    //   id: 1,
+    //   title: 'Angular For Beginners'
+  // };
+
+
+    this.dialog.open(RegistroComponent, dialogConfig);
   }
 
 }

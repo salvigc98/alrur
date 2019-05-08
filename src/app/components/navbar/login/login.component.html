@@ -11,17 +11,17 @@
       <!-- <br> -->
       <!-- <div class="vertical-divider"></div> -->
       <div>
-      <a [href]="url">¿Olvidaste la contraseña?</a>
+      <h4 class="pointer">¿Olvidaste la contraseña?</h4>
       </div>
       
   </mat-dialog-content>
-  <div class="vertical-divider"></div>
+  <!-- <div class="vertical-divider"></div> -->
   <mat-dialog-actions>
     <button mat-button [mat-dialog-close]="true" (click)="save()" class="entrar">Entrar</button>
   </mat-dialog-actions>
-  <div class="vertical-divider"></div>
+  <!-- <div class="vertical-divider"></div> -->
   <!-- <br><br> -->
   <div>
-      <a [href]="url" >Crea una cuenta</a>
+      <h4 class="pointer" (click)="crearCuenta()">Crea una cuenta</h4>
   </div>
   </div>
