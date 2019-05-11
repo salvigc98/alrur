@@ -1,16 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { HttpClientModule } from "@angular/common/http";
 
+// componentes
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/navbar/login/login.component';
-import { RegistroComponent } from './components/navbar/registro/registro.component';
+// import { RegistroComponent } from './components/navbar/registro/registro.component';
 
-// import { Dialogo } from './components/navbar/navbar.component'
+// // import { Dialogo } from './components/navbar/navbar.component'
+
+// Servicios
+
+import { ComprobarViajeroService } from './servicios/comprobar-viajero.service';
 
 // Angular material componentes
 
@@ -30,7 +36,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     NavbarComponent,
     // Dialogo,
     LoginComponent,
-    RegistroComponent,
+    // RegistroComponent,
     HomeComponent
   ],
   imports: [
@@ -45,13 +51,16 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatInputModule,
     MatDialogModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ComprobarViajeroService,
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     LoginComponent,
-    RegistroComponent
+    // RegistroComponent
   ]
 })
 export class AppModule { }

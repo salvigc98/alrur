@@ -2,8 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { LoginComponent } from '../navbar/login/login.component';
 
-export interface DialogData {
-}
+// Servicios
+
+import { ComprobarViajeroService } from '../../servicios/comprobar-viajero.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export interface DialogData {
 export class NavbarComponent implements OnInit {
   // selected = 'option2';
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public comprobarViajero: ComprobarViajeroService) { }
 
   openDialog() {
 
@@ -23,26 +24,24 @@ export class NavbarComponent implements OnInit {
     // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
-    dialogConfig.width = "300px";
-    dialogConfig.height = "400px";
+    dialogConfig.width = '350px';
+    dialogConfig.height = '500px';
 
-    // dialogConfig.data = {
-    //   id: 1,
-    //   title: 'Angular For Beginners'
-  // };
+    dialogConfig.data = {
+  };
 
 
-    this.dialog.open(LoginComponent, dialogConfig);
+  const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data =>{
+    if(data){
+    let usuario = data.usuario;
+    let contraseña = data.contraseña;
+    this.comprobarViajero.comprovarViajero(usuario, contraseña);
+    }
+  }
+  );
 }
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    // });
-
-
-  // viajero(viajero:any) {
-  //   console.log(viajero);
-  // }
 
   ngOnInit() {
   }

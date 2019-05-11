@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog,MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { RegistroComponent } from '../registro/registro.component';
@@ -10,32 +10,33 @@ import { RegistroComponent } from '../registro/registro.component';
 })
 export class LoginComponent implements OnInit {
 
+  crear:boolean = false;
+  acceder:boolean = true;
+  form: FormGroup;
+  usuario:string;
+  contraseña:string;
+
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
       private dialogRef: MatDialogRef<LoginComponent>,
-      // @Inject(MAT_DIALOG_DATA) data
-  ) {
-    // this.description = data.description;
+      @Inject(MAT_DIALOG_DATA) data) {
+    this.usuario = data.usuario;
+    this.contraseña = data.contraseña;
    }
 
-  ngOnInit() {
-  }
-
-  form: FormGroup;
-  description:string;
-
-
-
   // ngOnInit() {
-  //     this.form = this.fb.group({
-  //         description: [this.description, []]
-  //     });
   // }
 
+  ngOnInit() {
+      this.form = this.fb.group({
+          usuario: [this.usuario, []],
+          contraseña: [this.contraseña, []]
+      });
+  }
+
   save() {
-      // this.dialogRef.close(this.form.value);
-      console.log('funciona');
+      this.dialogRef.close(this.form.value);
   }
 
   close() {
@@ -43,23 +44,8 @@ export class LoginComponent implements OnInit {
   }
 
   crearCuenta(){
-    // console.log('crea');
-    this.dialogRef.close();
-    const dialogConfig = new MatDialogConfig();
-
-    // dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
-    dialogConfig.width = "350px";
-    dialogConfig.height = "500px";
-
-    // dialogConfig.data = {
-    //   id: 1,
-    //   title: 'Angular For Beginners'
-  // };
-
-
-    this.dialog.open(RegistroComponent, dialogConfig);
+  this.crear = true;
+  this.acceder = false;
   }
 
 }
