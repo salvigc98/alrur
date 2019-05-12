@@ -12,19 +12,19 @@
     padding: 1%;
   }
 
-  .mat-toolbar {
+  /* .mat-toolbar {
     height: 100px !important;
     min-height: 100px !important;
-  }
+  } */
 
   .mat-button{
-    margin-top: 35px;
+    /* margin-top: 35px; */
     font-size: 20px;
     background-color: aquamarine;
   }
 
   .mat-form-field{
-   margin-top: 35px;
+   /* margin-top: 35px; */
   }
 
   /* .mat-toolbar-row{
@@ -32,7 +32,7 @@
   } */
 
   .icono{
-    width: 80px;
-    height: 80px;
-    margin-top: 35px;
+    width: 6%;
+    height: 6%;
+    /* margin-top: 35px; */
   }

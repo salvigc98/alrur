@@ -2,29 +2,26 @@
   <h2 mat-dialog-title class="titulo">Acceder con tu cuenta</h2>
   <mat-dialog-content class="contenido"  [formGroup]="form">
       <mat-form-field>
-          <input matInput placeholder="Usuario" formControlName="usuario" class="input">
+          <input matInput placeholder="Correo electrónico" formControlName="correo" class="input">
       </mat-form-field>
       <mat-form-field>
-          <input matInput placeholder="Contraseña" formControlName="contraseña" class="input">
+          <input matInput placeholder="Contraseña" formControlName="contrasena" class="input">
       </mat-form-field>
-      <div>
-      <h4 class="pointer">¿Olvidaste la contraseña?</h4>
-      </div>
   </mat-dialog-content>
-  <mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="true" (click)="save()" class="entrar">Entrar</button>
+  <mat-dialog-actions class="col-auto" >
+    <button mat-button  (click)="save()" class="entrar">Entrar</button>
   </mat-dialog-actions>
-  <div>
+  <div class="col-auto" class="vertical-separator">
       <h4 class="pointer" (click)="crearCuenta()">Crea una cuenta</h4>
   </div>
+  <div class="col-auto">
+      <h4 class="pointer">¿Olvidaste la contraseña?</h4>
+      </div>
   </div>
 
   <div class="principal" *ngIf="crear">
     <h2 mat-dialog-title class="titulo">Crea una cuenta</h2>
     <mat-dialog-content class="contenido">
-        <mat-form-field>
-            <input matInput value="" placeholder="Nombre público" #message class="input">
-        </mat-form-field>
         <mat-form-field>
             <input matInput value="" placeholder="Nombre" #message class="input">
         </mat-form-field>

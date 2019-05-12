@@ -13,16 +13,16 @@ export class LoginComponent implements OnInit {
   crear:boolean = false;
   acceder:boolean = true;
   form: FormGroup;
-  usuario:string;
-  contraseña:string;
+  correo:string;
+  contrasena:string;
 
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
       private dialogRef: MatDialogRef<LoginComponent>,
       @Inject(MAT_DIALOG_DATA) data) {
-    this.usuario = data.usuario;
-    this.contraseña = data.contraseña;
+    this.correo = data.correo;
+    this.contrasena = data.contrasena;
    }
 
   // ngOnInit() {
@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
       this.form = this.fb.group({
-          usuario: [this.usuario, []],
-          contraseña: [this.contraseña, []]
+          correo: [this.correo, []],
+          contrasena: [this.contrasena, []]
       });
   }
 

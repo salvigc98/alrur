@@ -17,9 +17,10 @@
     background-color: blue;
 }
 
-/* .vertical-divider {
+.vertical-separator {
+    /* position: relative; */
       margin-top: 10%;
-  } */
+  }
 
   .pointer{
       cursor: pointer;

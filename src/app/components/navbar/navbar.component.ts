@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 import { LoginComponent } from '../navbar/login/login.component';
 
 // Servicios
 
 import { ComprobarViajeroService } from '../../servicios/comprobar-viajero.service';
+
 
 
 @Component({
@@ -15,7 +16,7 @@ import { ComprobarViajeroService } from '../../servicios/comprobar-viajero.servi
 export class NavbarComponent implements OnInit {
   // selected = 'option2';
 
-  constructor(public dialog: MatDialog, public comprobarViajero: ComprobarViajeroService) { }
+  constructor(public dialog: MatDialog, public comprobarViajero: ComprobarViajeroService, private snackBar: MatSnackBar) { }
 
   openDialog() {
 
@@ -25,7 +26,7 @@ export class NavbarComponent implements OnInit {
     dialogConfig.autoFocus = true;
 
     dialogConfig.width = '350px';
-    dialogConfig.height = '500px';
+    dialogConfig.height = '400px';
 
     dialogConfig.data = {
   };
@@ -35,9 +36,28 @@ export class NavbarComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data =>{
     if(data){
-    let usuario = data.usuario;
-    let contraseña = data.contraseña;
-    this.comprobarViajero.comprovarViajero(usuario, contraseña);
+    let correo = data.correo;
+    let contrasena = data.contrasena;
+    this.comprobarViajero.comprovarViajero(correo, contrasena)
+    .subscribe(
+      data =>{
+        console.log(data);
+        if(data == 'exito'){
+        }else{
+            this.snackBar.open('Usuario o contraseña incorrectos', '', {
+              duration: 3000,
+            });
+        }
+      },
+      error =>{
+        if(error){
+        // this.snackBar.open('Fallo al conectar con el servidor', '', {
+        //   duration: 3000,
+        // });
+        console.log(error);
+      }
+      }
+    );
     }
   }
   );
