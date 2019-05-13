@@ -33,11 +33,15 @@
 
     <span class="remaining-space"></span>
 
-    <mat-form-field>
+    <mat-form-field *ngIf="!login">
       <mat-label>Iniciar sesión</mat-label>
       <mat-select [(value)]="selected3">
         <mat-option value="viajero" (click)="openDialog()">Viajero</mat-option>
         <mat-option value="propietario">Propietario</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <div *ngIf="login">
+      <h1>{{ usuario }}</h1>
+    </div>
 </nav>
