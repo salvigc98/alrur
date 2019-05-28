@@ -11,13 +11,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/navbar/login/login.component';
+import { LoginPropietarioComponent } from './components/navbar/login-propietario/login-propietario.component';
+import { MustMatchValidatorComponent } from './components/shared/must-match-validator/must-match-validator.component';
 // import { RegistroComponent } from './components/navbar/registro/registro.component';
 
 // // import { Dialogo } from './components/navbar/navbar.component'
 
 // Servicios
 
-import { ComprobarViajeroService } from './servicios/comprobar-viajero.service';
+// import { ComprobarViajeroService } from './servicios/comprobar-viajero.service';
 
 // Angular material componentes
 
@@ -32,6 +34,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +42,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     // Dialogo,
     LoginComponent,
     // RegistroComponent,
-    HomeComponent
+    HomeComponent,
+    MustMatchValidatorComponent,
+    LoginPropietarioComponent
   ],
   imports: [
     AppRoutingModule,
@@ -59,11 +64,12 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
   ],
   providers: [
     CookieService,
-    ComprobarViajeroService,
+    // ComprobarViajeroService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [
     LoginComponent,
+    LoginPropietarioComponent
     // RegistroComponent
   ]
 })

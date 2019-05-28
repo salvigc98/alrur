@@ -1,20 +1,17 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit,  Inject } from '@angular/core';
 import { MatDialog,MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
-
-// Servicios
 
 import { ComprobarViajeroService } from '../../../servicios/comprobar-viajero.service';
 import { RegistrarViajeroService } from '../../../servicios/registrar-viajero.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-login-propietario',
+  templateUrl: './login-propietario.component.html',
+  styleUrls: ['./login-propietario.component.css']
 })
-export class LoginComponent implements OnInit {
-
+export class LoginPropietarioComponent implements OnInit {
   crear:boolean = false;
   acceder:boolean = true;
   formInicio: FormGroup;
@@ -22,7 +19,10 @@ export class LoginComponent implements OnInit {
   CorreoInicio:string;
   ContrasenaInicio:string;
   NombreRegistro:string;
-  ApellidosRegistro:string;
+  NifRegistro:string;
+  DireccionRegistro:string;
+  CodigoPostalRegistro:string;
+  TelefonoRegistro:string;
   ContrasenaRegistro:string;
   ContrasenaRegistro2:string;
   CorreoRegistro:string;
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     public registrarViajero: RegistrarViajeroService,
     private snackBar: MatSnackBar,
     private cookieService: CookieService,
-    private dialogRef: MatDialogRef<LoginComponent>,){}
+    private dialogRef: MatDialogRef<LoginPropietarioComponent>,){}
   //     @Inject(MAT_DIALOG_DATA) data) {
   //   this.CorreoInicio = data.CorreoInicio;
   //   this.ContrasenaInicio = data.ContrasenaInicio;
@@ -53,9 +53,12 @@ export class LoginComponent implements OnInit {
 
       this.formRegistro = this.fb.group({
         NombreRegistro: [this.NombreRegistro, Validators.required],
-        ApellidosRegistro: [this.ApellidosRegistro, Validators.required],
+        NifRegistro: [this.NifRegistro, Validators.required],
         ContrasenaRegistro: [this.ContrasenaRegistro, [Validators.required, Validators.minLength(6)]],
         ContrasenaRegistro2: [this.ContrasenaRegistro2, [Validators.required, Validators.minLength(6)]],
+        DireccionRegistro: [this.DireccionRegistro, Validators.required],
+        CodigoPostalRegistro: [this.CodigoPostalRegistro, Validators.required],
+        TelefonoRegistro: [this.TelefonoRegistro, Validators.required],
         CorreoRegistro: [this.CorreoRegistro, [Validators.required, Validators.email]]
     });
   }

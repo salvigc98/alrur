@@ -1,43 +1,67 @@
 <div class="principal" *ngIf="acceder">
-  <h2 mat-dialog-title class="titulo">Acceder con tu cuenta</h2>
-  <mat-dialog-content class="contenido"  [formGroup]="form">
-      <mat-form-field>
-          <input matInput placeholder="Correo electrónico" formControlName="correo" class="input">
-      </mat-form-field>
-      <mat-form-field>
-          <input matInput placeholder="Contraseña" formControlName="contrasena" class="input">
-      </mat-form-field>
-  </mat-dialog-content>
-  <mat-dialog-actions class="col-auto" >
-    <button mat-button  (click)="save()" class="entrar">Entrar</button>
-  </mat-dialog-actions>
-  <div class="col-auto" class="vertical-separator">
-      <h4 class="pointer" (click)="crearCuenta()">Crea una cuenta</h4>
-  </div>
-  <div class="col-auto">
-      <h4 class="pointer">¿Olvidaste la contraseña?</h4>
-      </div>
-  </div>
-
-  <div class="principal" *ngIf="crear">
-    <h2 mat-dialog-title class="titulo">Crea una cuenta</h2>
-    <mat-dialog-content class="contenido">
-        <mat-form-field>
-            <input matInput value="" placeholder="Nombre" #message class="input">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput value="" placeholder="Apellidos" #message class="input">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput value="" placeholder="Contraseña" #message class="input">
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput value="" placeholder="Correo electrónico" #message2 class="input">
-        </mat-form-field>
-  
-    </mat-dialog-content>
-    <mat-dialog-actions>
-      <button mat-button [mat-dialog-close]="true" (click)="save()" class="entrar">Registrarse</button>
-    </mat-dialog-actions>
+    <h2 mat-dialog-title class="titulo">
+      Acceder con tu cuenta
+    </h2>
+    <form [formGroup]="formInicio" (ngSubmit)="onSubmitInicio()">
+        <mat-dialog-content class="contenido">
+            <mat-form-field>
+                <input matInput placeholder="Correo electrónico" formControlName="CorreoInicio" class="input">
+            </mat-form-field>
+            <div *ngIf="submitted && f.CorreoInicio.errors" class="fallo-formulario">
+                Correo inválido
+            </div>
+            <mat-form-field>
+                <input type="password" matInput placeholder="Contraseña" formControlName="ContrasenaInicio" class="input">
+            </mat-form-field>
+            <div *ngIf="submitted && f.ContrasenaInicio.errors" class="fallo-formulario">
+                Mínimo 6 carácteres
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-actions class="col-auto" >
+            <button mat-button type="submit" class="entrar">
+                Entrar
+            </button>
+        </mat-dialog-actions>
+    </form>
+    <div class="col-auto" class="vertical-separator">
+        <h4 class="pointer" (click)="crearCuenta()">
+          Crea una cuenta
+        </h4>
     </div>
+    <div class="col-auto">
+        <h4 class="pointer">
+            ¿Olvidaste la contraseña?
+        </h4>
+    </div>
+</div>
+
+<div class="principal" *ngIf="crear">
+    <h2 mat-dialog-title class="titulo">
+        Crea una cuenta
+    </h2>
+    <form [formGroup]="formRegistro" (ngSubmit)="onSubmitRegistro()">
+        <mat-dialog-content class="contenido">
+            <mat-form-field>
+                <input matInput placeholder="Nombre" formControlName="NombreRegistro" class="input">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Apellidos" formControlName="ApellidosRegistro" class="input">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Contraseña" formControlName="ContrasenaRegistro" class="input">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Repite Contraseña" formControlName="ContrasenaRegistro2" class="input">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Correo electrónico" formControlName="CorreoRegistro" class="input">
+            </mat-form-field>
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <button mat-button type="submit" class="entrar">
+                Registrarse
+            </button>
+        </mat-dialog-actions>
+    </form>
+</div>
   
