@@ -5,28 +5,20 @@ import {map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class RegistrarPropietarioService {
+export class RecuperarContrasenaViajerosService {
   navegacionUrl: any;
 
   constructor(public http: HttpClient,) { }
 
-  registrarPropietario(NombreRegistro:any, NifRegistro:any, ContrasenaRegistro:any, DireccionRegistro:any, CodigoPostalRegistro:any, TelefonoRegistro:any, CorreoRegistro:any){
+  recuperarContrasenaViajero(correo:any){
     let headers: any = new HttpHeaders({
       "Content-Type": "application/json"
     });
     let postParams = JSON.stringify({
-      NombreRegistro: NombreRegistro,
-      NifRegistro: NifRegistro,
-      ContrasenaRegistro: ContrasenaRegistro,
-      DireccionRegistro: DireccionRegistro,
-      CodigoPostalRegistro: CodigoPostalRegistro,
-      TelefonoRegistro: TelefonoRegistro,
-      CorreoRegistro: CorreoRegistro,
+      correo: correo,
     });
 
-    // console.log(postParams);
-
-    this.navegacionUrl = "http://localhost/alrur/usuarios/email_verificacion_propietario.php";
+    this.navegacionUrl = "http://localhost/alrur/usuarios/correo_recuperar_contrasena_viajero.php";
     return this.http.post(this.navegacionUrl, postParams, { headers: headers })
       .pipe(map(
         data => {

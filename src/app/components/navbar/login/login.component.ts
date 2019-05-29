@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { ComprobarViajeroService } from '../../../servicios/comprobar-viajero.service';
 import { RegistrarViajeroService } from '../../../servicios/registrar-viajero.service';
+import { RecuperarContrasenaViajerosService } from '../../../servicios/recuperar-contrasena-viajeros.service';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +18,10 @@ export class LoginComponent implements OnInit {
 
   crear:boolean = false;
   acceder:boolean = true;
+  recuperar:boolean = false;
   formInicio: FormGroup;
   formRegistro: FormGroup;
+  formRecuperar: FormGroup;
   CorreoInicio:string;
   ContrasenaInicio:string;
   NombreRegistro:string;
@@ -26,6 +29,7 @@ export class LoginComponent implements OnInit {
   ContrasenaRegistro:string;
   ContrasenaRegistro2:string;
   CorreoRegistro:string;
+  CorreoRecuperar:string;
   submitted = false;
   // comprobarFormulario: boolean;
 
@@ -34,6 +38,7 @@ export class LoginComponent implements OnInit {
     public dialog: MatDialog,
     public comprobarViajero: ComprobarViajeroService,
     public registrarViajero: RegistrarViajeroService,
+    public RecuperarContrasenaViajero: RecuperarContrasenaViajerosService,
     private snackBar: MatSnackBar,
     private cookieService: CookieService,
     private dialogRef: MatDialogRef<LoginComponent>,){}
@@ -47,8 +52,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
       this.formInicio = this.fb.group({
-          CorreoInicio: [this.CorreoInicio, [Validators.required, Validators.email]],
-          ContrasenaInicio: [this.ContrasenaInicio, [Validators.required, Validators.minLength(6)]]
+        CorreoInicio: [this.CorreoInicio, [Validators.required, Validators.email]],
+        ContrasenaInicio: [this.ContrasenaInicio, [Validators.required, Validators.minLength(6)]]
       });
 
       this.formRegistro = this.fb.group({
@@ -57,7 +62,11 @@ export class LoginComponent implements OnInit {
         ContrasenaRegistro: [this.ContrasenaRegistro, [Validators.required, Validators.minLength(6)]],
         ContrasenaRegistro2: [this.ContrasenaRegistro2, [Validators.required, Validators.minLength(6)]],
         CorreoRegistro: [this.CorreoRegistro, [Validators.required, Validators.email]]
-    });
+      });
+
+      this.formRecuperar = this.fb.group({
+        CorreoRecuperar: [this.CorreoRecuperar, [Validators.required, Validators.email]],
+      });
   }
 
   get f() {
@@ -144,13 +153,45 @@ export class LoginComponent implements OnInit {
       });
   }
 
+  onSubmitRecuperar(){
+    let CorreoRecuperar = this.formRecuperar.value.CorreoRecuperar;
+    this.RecuperarContrasenaViajero.recuperarContrasenaViajero(CorreoRecuperar)
+    .subscribe((data:any) =>{
+      if(data == 'correo_enviado'){
+        this.snackBar.open('Se ha enviado un correo con instrucciones para restablecer la contraseña', '', {
+          duration: 3000,
+        });
+        this.dialogRef.close();
+      }
+      if(data == 'error'){
+        this.snackBar.open('No existe ningún usuario con el correo proporcionado', '', {
+          duration: 3000,
+        });
+      }
+    },
+    error =>{
+      if(error){
+        this.snackBar.open('Fallo al conectar con el servidor', '', {
+          duration: 3000,
+        });
+      }
+    }
+    )}
+
   close() {
       this.dialogRef.close();
   }
 
   crearCuenta(){
-  this.crear = true;
-  this.acceder = false;
-  }
+    this.crear = true;
+    this.acceder = false;
+    this.recuperar = false;
+    }
+
+    recuperarCuenta() {
+      this.crear = false;
+      this.acceder = false;
+      this.recuperar = true;
+    }
 
 }
