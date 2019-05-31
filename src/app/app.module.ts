@@ -13,6 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/navbar/login/login.component';
 import { LoginPropietarioComponent } from './components/navbar/login-propietario/login-propietario.component';
 import { MustMatchValidatorComponent } from './components/shared/must-match-validator/must-match-validator.component';
+import { VistaPropietariosComponent } from './components/vista-propietarios/vista-propietarios.component';
 // import { RegistroComponent } from './components/navbar/registro/registro.component';
 
 // // import { Dialogo } from './components/navbar/navbar.component'
@@ -32,6 +33,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatCardModule} from '@angular/material/card';
+import { AnadirAlojamientoComponent } from './components/anadir-alojamiento/anadir-alojamiento.component';
 
 
 
@@ -44,7 +47,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     // RegistroComponent,
     HomeComponent,
     MustMatchValidatorComponent,
-    LoginPropietarioComponent
+    LoginPropietarioComponent,
+    VistaPropietariosComponent,
+    AnadirAlojamientoComponent
   ],
   imports: [
     AppRoutingModule,
@@ -60,7 +65,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule,
   ],
   providers: [
     CookieService,

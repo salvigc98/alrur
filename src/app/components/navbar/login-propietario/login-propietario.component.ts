@@ -2,6 +2,7 @@ import { Component, OnInit,  Inject } from '@angular/core';
 import { MatDialog,MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 import { ComprobarPropietarioService } from '../../../servicios/comprobar-propietario.service';
 import { RegistrarPropietarioService } from '../../../servicios/registrar-propietario.service';
@@ -41,6 +42,7 @@ export class LoginPropietarioComponent implements OnInit {
     public recuperarContrasenaPropietarios: RecuperarContrasenaPropietariosService,
     private snackBar: MatSnackBar,
     private cookieService: CookieService,
+    private router:Router,
     private dialogRef: MatDialogRef<LoginPropietarioComponent>,){}
   //     @Inject(MAT_DIALOG_DATA) data) {
   //   this.CorreoInicio = data.CorreoInicio;
@@ -102,6 +104,7 @@ export class LoginPropietarioComponent implements OnInit {
           // this.usuario = data[0]['nombre'];
           // console.log(this.usuario);
           this.dialogRef.close();
+          this.router.navigate(['/', 'vistaPropietarios']);
         }
       },
       error =>{
