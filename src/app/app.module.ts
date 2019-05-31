@@ -25,6 +25,7 @@ import { VistaPropietariosComponent } from './components/vista-propietarios/vist
 // Angular material componentes
 
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
@@ -67,6 +68,7 @@ import { AnadirAlojamientoComponent } from './components/anadir-alojamiento/anad
     MatSnackBarModule,
     HttpClientModule,
     MatCardModule,
+    MatIconModule
   ],
   providers: [
     CookieService,

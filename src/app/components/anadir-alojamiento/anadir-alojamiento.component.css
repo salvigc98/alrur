@@ -1,0 +1,19 @@
+.persondiv{
+    width: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+table{
+    width: 60%;
+}
+
+td{
+    text-align: left;
+}
+
+.personinput{
+    width: 70%;
+}
