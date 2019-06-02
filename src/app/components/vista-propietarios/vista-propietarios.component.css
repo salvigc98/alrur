@@ -1,9 +1,10 @@
 .persondiv {
     width: 33%;
     float: left;
+    height: 30%;
 }
 .example-card {
-    max-width: 100%;
+    /* max-width: 100%; */
     margin-left: 2%;
     margin-top: 2%;
     cursor: pointer;
@@ -19,5 +20,5 @@
   
   .example-header-image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
+    /* background-size: cover; */
   }

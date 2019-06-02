@@ -1,4 +1,17 @@
 <app-navbar></app-navbar>
-<p>
-  home works!
-</p>
+<div class="persondiv" *ngFor="let alojamiento of alojamientos" (click)="verAlojamiento(alojamiento.Id_casarural)">
+    <mat-card class="example-card" >
+        <mat-card-header>
+          <!-- <div mat-card-avatar class="example-header-image"></div> -->
+          <mat-card-title>{{ alojamiento.nombre }}</mat-card-title>
+          <mat-card-subtitle>{{ alojamiento.municipio }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="alojamiento.imagen" height="300px">
+        <mat-card-content>
+          <p [innerHTML]="alojamiento.descripcion">
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+        </mat-card-actions>
+      </mat-card>
+</div>

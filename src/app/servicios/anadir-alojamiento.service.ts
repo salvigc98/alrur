@@ -30,7 +30,7 @@ export class AnadirAlojamientoService {
     });
 
     // console.log(postParams);
-    this.navegacionUrl = "http://localhost/alrur/anadir_alojamiento/anadir_alojamiento.php";
+    this.navegacionUrl = "http://localhost/alrur/alojamientos/anadir_alojamiento.php";
     return this.http.post(this.navegacionUrl, postParams, { headers: headers })
       .subscribe(
         data => {

@@ -5,20 +5,21 @@ import {map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ObtenerLocalidadesProvinciasService {
+export class EliminarAlojamientoService {
   navegacionUrl: any;
 
-  constructor(public http: HttpClient,) { }
+  constructor(public http: HttpClient) { }
 
-  obtenerLocalidadesProvincias(accion: any){
+  eliminarAlojamiento(id_casarural: any){
     let headers: any = new HttpHeaders({
       "Content-Type": "application/json"
     });
     let postParams = JSON.stringify({
-      accion: accion,
+      id_casarural: id_casarural,
     });
 
-    this.navegacionUrl = "http://localhost/alrur/alojamientos/obtener_provincia_localidad.php";
+    // console.log(postParams);
+    this.navegacionUrl = "http://localhost/alrur/alojamientos/eliminar_alojamiento.php";
     return this.http.post(this.navegacionUrl, postParams, { headers: headers })
       .pipe(map(
         data => {

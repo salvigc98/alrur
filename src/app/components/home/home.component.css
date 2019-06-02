@@ -1,0 +1,12 @@
+.persondiv {
+    width: 33%;
+    float: left;
+    height: 30%;
+}
+.example-card {
+    /* max-width: 100%; */
+    margin-left: 2%;
+    margin-top: 2%;
+    cursor: pointer;
+    vertical-align: middle;
+  }

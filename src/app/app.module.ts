@@ -14,6 +14,7 @@ import { LoginComponent } from './components/navbar/login/login.component';
 import { LoginPropietarioComponent } from './components/navbar/login-propietario/login-propietario.component';
 import { MustMatchValidatorComponent } from './components/shared/must-match-validator/must-match-validator.component';
 import { VistaPropietariosComponent } from './components/vista-propietarios/vista-propietarios.component';
+import { AnadirAlojamientoComponent } from './components/anadir-alojamiento/anadir-alojamiento.component';
 // import { RegistroComponent } from './components/navbar/registro/registro.component';
 
 // // import { Dialogo } from './components/navbar/navbar.component'
@@ -35,9 +36,11 @@ import { MatInputModule } from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatCardModule} from '@angular/material/card';
-import { AnadirAlojamientoComponent } from './components/anadir-alojamiento/anadir-alojamiento.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { AlquilarCasaruralComponent } from './components/alquilar-casarural/alquilar-casarural.component';
 
 
 
@@ -52,7 +55,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MustMatchValidatorComponent,
     LoginPropietarioComponent,
     VistaPropietariosComponent,
-    AnadirAlojamientoComponent
+    AnadirAlojamientoComponent,
+    AlquilarCasaruralComponent
   ],
   imports: [
     AppRoutingModule,
@@ -71,6 +75,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     HttpClientModule,
     MatCardModule,
     MatIconModule,
+    MatSlideToggleModule,
     AngularEditorModule
   ],
   providers: [
