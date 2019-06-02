@@ -2,6 +2,7 @@
   <h1 class="mx-auto">Añadir nuevo alojamiento</h1>
 </div>
 
+<form [formGroup]="formNuevoAlojamiento" (ngSubmit)="anadirAlojamiento()">
 <div class="persondiv">
   <table>
     <tr>
@@ -10,7 +11,7 @@
       </td>
       <td>
     <mat-form-field class="personinput">
-      <input matInput type="text" placeholder="Nombre:" [(ngModel)]="value" >
+      <input matInput type="text" placeholder="Nombre:" formControlName="nombre">
       <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
         <mat-icon>close</mat-icon>
       </button>
@@ -21,22 +22,16 @@
     <td>
     <mat-form-field class="personinput">
         <mat-label>Provincia</mat-label>
-        <mat-select [(value)]="selected">
-          <mat-option>None</mat-option>
-          <mat-option value="option1">Option 1</mat-option>
-          <mat-option value="option2">Option 2</mat-option>
-          <mat-option value="option3">Option 3</mat-option>
+        <mat-select (selectionChange)="cargarLocalidad($event.value)" formControlName="provincia">
+          <mat-option *ngFor="let provincia of provincias" [value]="provincia.Id_provincia">{{ provincia.provincia }}</mat-option>
         </mat-select>
     </mat-form-field>
     </td>
     <td>
     <mat-form-field class="personinput">
-        <mat-label>Provincia</mat-label>
-        <mat-select [(value)]="selected">
-          <mat-option>None</mat-option>
-          <mat-option value="option1">Option 1</mat-option>
-          <mat-option value="option2">Option 2</mat-option>
-          <mat-option value="option3">Option 3</mat-option>
+        <mat-label>Localidad</mat-label>
+        <mat-select formControlName="localidad">
+          <mat-option *ngFor="let localidad of localidades" [value]="localidad.id_localidad">{{ localidad.municipio }}</mat-option>
         </mat-select>
       </mat-form-field>
     </td>
@@ -47,7 +42,7 @@
       </td>
       <td>
     <mat-form-field class="personinput">
-      <input matInput type="text" placeholder="Telefono:" [(ngModel)]="value" >
+      <input matInput type="text" placeholder="Telefono:" formControlName="telefono">
       <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
         <mat-icon>close</mat-icon>
       </button>
@@ -60,7 +55,7 @@
       </td>
       <td>
     <mat-form-field class="personinput">
-      <input matInput type="text" placeholder="2º Telefono:" [(ngModel)]="value" >
+      <input matInput type="text" placeholder="2º Telefono:" formControlName="telefono2">
       <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
         <mat-icon>close</mat-icon>
       </button>
@@ -73,17 +68,39 @@
       </td>
       <td>
     <mat-form-field class="personinput">
-      <input matInput type="text" placeholder="Correo:" [(ngModel)]="value" >
+      <input matInput type="text" placeholder="Correo:" formControlName="correo">
       <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
       </td>
   </tr>
-  <tr>
-    <td colspan="2">
-    
-    </td>
-  </tr>
-  </table>
+</table>
+  
 </div>
+
+<div class="persondiv" >
+    <angular-editor formControlName="descripcion" style="width: 90%" [config]="config"></angular-editor>
+</div>
+
+<div style="position: absolute; float: left; top: 50%;">
+
+<img *ngFor='let url of urls' [src]="url" width="20%">
+
+<div class="browse-btn" *ngIf="urls.length < 5">
+
+    <input id="cameraImg" type='file' (change)="onSelectFile($event)" multiple >
+    <div class="browse-image">
+        <img src="../../../assets/iconos/camara.png" width="100%" />
+    </div>
+</div>
+</div>
+
+<div class="personboton">
+<button mat-button type="submit">
+    Añadir
+</button>
+</div>
+</form>
+
+

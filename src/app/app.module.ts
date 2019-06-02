@@ -37,6 +37,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatCardModule} from '@angular/material/card';
 import { AnadirAlojamientoComponent } from './components/anadir-alojamiento/anadir-alojamiento.component';
 
+import { AngularEditorModule } from '@kolkov/angular-editor';
+
 
 
 @NgModule({
@@ -68,7 +70,8 @@ import { AnadirAlojamientoComponent } from './components/anadir-alojamiento/anad
     MatSnackBarModule,
     HttpClientModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    AngularEditorModule
   ],
   providers: [
     CookieService,
