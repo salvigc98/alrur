@@ -10,7 +10,7 @@ export class AnadirAlojamientoService {
 
   constructor(public http: HttpClient) { }
 
-  anadirAlojamiento(token: any, nombre: any, localidad: any, telefono: any, telefono2: any, correo:any, descripcion: any, imagen0:any, imagen1:any, imagen2:any, imagen3:any, imagen4:any){
+  anadirAlojamiento(token: any, nombre: any, localidad: any, telefono: any, telefono2: any, correo:any, precio:any, descripcion: any, imagen0:any, imagen1:any, imagen2:any, imagen3:any, imagen4:any){
     let headers: any = new HttpHeaders({
       "Content-Type": "application/json"
     });
@@ -21,6 +21,7 @@ export class AnadirAlojamientoService {
       telefono: telefono,
       telefono2: telefono2,
       correo: correo,
+      precio: precio,
       descripcion: descripcion,
       imagen0: imagen0,
       imagen1: imagen1,

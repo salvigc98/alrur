@@ -55,4 +55,50 @@ export class ListarAlojamientosService {
         }
       ));
   }
+
+  listarAlojamiento(id_alojamiento: any){
+    let headers: any = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+    let postParams = JSON.stringify({
+      id_alojamiento: id_alojamiento,
+    });
+
+    // console.log(postParams);
+    this.navegacionUrl = "http://localhost/alrur/alojamientos/listar_alojamiento.php";
+    return this.http.post(this.navegacionUrl, postParams, { headers: headers })
+      .pipe(map(
+        data => {
+          // console.log(data);
+          return data;
+        },
+        error => {
+          // console.log(error);
+          return error;
+        }
+      ));
+  }
+
+  listarAlojamientoImagenes(id_alojamiento: any){
+    let headers: any = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+    let postParams = JSON.stringify({
+      id_alojamiento: id_alojamiento,
+    });
+
+    // console.log(postParams);
+    this.navegacionUrl = "http://localhost/alrur/alojamientos/listar_alojamiento_imagenes.php";
+    return this.http.post(this.navegacionUrl, postParams, { headers: headers })
+      .pipe(map(
+        data => {
+          // console.log(data);
+          return data;
+        },
+        error => {
+          // console.log(error);
+          return error;
+        }
+      ));
+  }
 }

@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 // import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router'
 
+// Servicios
+
+import { ListarAlojamientosService } from '../../servicios/listar-alojamientos.service';
+
 @Component({
   selector: 'app-alquilar-casarural',
   templateUrl: './alquilar-casarural.component.html',
@@ -9,16 +13,39 @@ import { ActivatedRoute } from '@angular/router'
 })
 export class AlquilarCasaruralComponent implements OnInit {
 
+  id_casarural: any;
+  alojamiento = [];
+  imagenes: any;
+
   constructor(
     private route: ActivatedRoute,
+    public listaralojamiento: ListarAlojamientosService,
   ) { }
 
   ngOnInit() {
     this.route.params.subscribe(
       data =>{
-        console.log(data);
+        this.id_casarural = data.id_casarural;
       }
     )
-  }
+    this.listaralojamiento.listarAlojamiento(this.id_casarural)
+    .subscribe(
+      data =>{
+        this.alojamiento = data[0];
+        console.log(this.alojamiento);
+      },
+      error =>{
+        console.log(error);
+      });
 
+    this.listaralojamiento.listarAlojamientoImagenes(this.id_casarural)
+    .subscribe(
+      data =>{
+        this.imagenes = data;
+        console.log(this.imagenes);
+      },
+      error =>{
+        console.log(error);
+      });
+  }
 }
