@@ -1,0 +1,30 @@
+import { OnInit, Renderer2, ElementRef } from '@angular/core';
+import { Observable } from "rxjs";
+export declare class MdbTableDirective implements OnInit {
+    private el;
+    private renderer;
+    striped: boolean;
+    bordered: boolean;
+    borderless: boolean;
+    hover: boolean;
+    small: boolean;
+    responsive: boolean;
+    stickyHeader: boolean;
+    stickyHeaderBgColor: string;
+    stickyHeaderTextColor: string;
+    constructor(el: ElementRef, renderer: Renderer2);
+    private _dataSource;
+    private _dataSourceChanged;
+    addRow(newRow: any): void;
+    addRowAfter(index: number, row: any): void;
+    removeRow(index: number): void;
+    rowRemoved(): Observable<boolean>;
+    removeLastRow(): void;
+    getDataSource(): any;
+    setDataSource(data: any): void;
+    dataSourceChange(): Observable<any>;
+    filterLocalDataBy(searchKey: any): any;
+    searchLocalDataBy(searchKey: any): any;
+    searchDataObservable(searchKey: any): Observable<any>;
+    ngOnInit(): void;
+}

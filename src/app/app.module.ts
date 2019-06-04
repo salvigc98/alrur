@@ -15,6 +15,7 @@ import { LoginPropietarioComponent } from './components/navbar/login-propietario
 import { MustMatchValidatorComponent } from './components/shared/must-match-validator/must-match-validator.component';
 import { VistaPropietariosComponent } from './components/vista-propietarios/vista-propietarios.component';
 import { AnadirAlojamientoComponent } from './components/anadir-alojamiento/anadir-alojamiento.component';
+import { AlquilarCasaruralComponent } from './components/alquilar-casarural/alquilar-casarural.component';
 // import { RegistroComponent } from './components/navbar/registro/registro.component';
 
 // // import { Dialogo } from './components/navbar/navbar.component'
@@ -37,10 +38,16 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatCardModule} from '@angular/material/card';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MAT_DATE_LOCALE } from '@angular/material';
+
+
+// For MDB Angular Free
+import {  CarouselModule, WavesModule } from 'angular-bootstrap-md';
 
 
 import { AngularEditorModule } from '@kolkov/angular-editor';
-import { AlquilarCasaruralComponent } from './components/alquilar-casarural/alquilar-casarural.component';
+// import es from '@angular/common/locales/es';
+
 
 
 
@@ -76,10 +83,12 @@ import { AlquilarCasaruralComponent } from './components/alquilar-casarural/alqu
     MatCardModule,
     MatIconModule,
     MatSlideToggleModule,
-    AngularEditorModule
+    AngularEditorModule,
+    CarouselModule,
   ],
   providers: [
     CookieService,
+    {provide: MAT_DATE_LOCALE, useValue: 'es'},
     // ComprobarViajeroService,
   ],
   bootstrap: [AppComponent],

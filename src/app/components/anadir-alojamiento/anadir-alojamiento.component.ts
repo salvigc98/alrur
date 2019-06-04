@@ -26,6 +26,7 @@ export class AnadirAlojamientoComponent implements OnInit {
   telefono2: string;
   correo: string;
   precio: number;
+  plazas: number;
   descripcion: string;
   urls = [];
 
@@ -80,6 +81,7 @@ export class AnadirAlojamientoComponent implements OnInit {
       telefono2: [this.telefono2, [Validators.required]],
       correo: [this.correo, [Validators.required]],
       precio: [this.precio, [Validators.required]],
+      plazas: [this.plazas, [Validators.required]],
       descripcion: [this.descripcion, [Validators.required]],
       // ContrasenaInicio: [this.ContrasenaInicio, [Validators.required, Validators.minLength(6)]]
     });
@@ -130,13 +132,14 @@ export class AnadirAlojamientoComponent implements OnInit {
     let telefono2 = this.formNuevoAlojamiento.value.telefono2;
     let correo = this.formNuevoAlojamiento.value.correo;
     let precio = this.formNuevoAlojamiento.value.precio;
+    let plazas = this.formNuevoAlojamiento.value.plazas;
     let descripcion = this.formNuevoAlojamiento.value.descripcion;
     let imagen0 = this.urls[0];
     let imagen1 = this.urls[1];
     let imagen2 = this.urls[2];
     let imagen3 = this.urls[3];
     let imagen4 = this.urls[4];
-    this.anadiralojamiento.anadirAlojamiento(token, nombre, localidad, telefono, telefono2, correo, precio, descripcion, imagen0, imagen1, imagen2, imagen3, imagen4);
+    this.anadiralojamiento.anadirAlojamiento(token, nombre, localidad, telefono, telefono2, correo, precio, plazas, descripcion, imagen0, imagen1, imagen2, imagen3, imagen4);
     // console.log(this.urls[0]);
     // console.log(this.formNuevoAlojamiento.value);
   }
