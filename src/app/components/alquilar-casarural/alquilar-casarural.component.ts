@@ -3,11 +3,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { LoginComponent } from '../navbar/login/login.component';
 
 // Servicios
 
 import { ListarAlojamientosService } from '../../servicios/listar-alojamientos.service';
 import { ConsultarDisponibilidadService } from '../../servicios/consultar-disponibilidad.service';
+import { ComprobarViajeroService } from '../../servicios/comprobar-viajero.service';
 
 @Component({
   selector: 'app-alquilar-casarural',
@@ -22,12 +26,16 @@ export class AlquilarCasaruralComponent implements OnInit {
   formdisp: FormGroup;
   fechaentrada: any;
   fechasalida: any;
+  comentario: string;
 
   constructor(
     private route: ActivatedRoute,
+    private dialog: MatDialog,
     public listaralojamiento: ListarAlojamientosService,
     public consultardisponibilidad: ConsultarDisponibilidadService,
+    public comprobarviajero: ComprobarViajeroService,
     private fb: FormBuilder,
+    private cookieService: CookieService,
   ) { }
 
   ngOnInit() {
@@ -58,17 +66,65 @@ export class AlquilarCasaruralComponent implements OnInit {
 
     this.formdisp = this.fb.group({
         fechaentrada: [this.fechaentrada, [Validators.required]],
-        fechasalida: [this.fechasalida, [Validators.required]]
+        fechasalida: [this.fechasalida, [Validators.required]],
+        comentario: [this.comentario]
       });
   }
 
+  openDialogViajero() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    // dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.width = '350px';
+    dialogConfig.height = '500px';
+
+    dialogConfig.data = {
+  };
+
+
+  const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
+
+
+}
+
   consultarDisp() {
-    console.log(this.formdisp.value);
+    // console.log(this.formdisp.value);
+    let token = this.cookieService.get('token');
     let fechaEntrada = this.formdisp.value.fechaentrada;
     let fechaSalida = this.formdisp.value.fechasalida;
-    fechaEntrada = formatDate(fechaEntrada, 'dd/MM/yyyy', 'en-US');
-    fechaSalida = formatDate(fechaSalida, 'dd/MM/yyyy', 'en-US');
-    this.consultardisponibilidad.consultarDisponibilidad(this.id_casarural, fechaEntrada, fechaSalida);
-    // console.log(fechaEntrada);
+    let comentario = this.formdisp.value.comentario;
+    fechaEntrada = formatDate(fechaEntrada, 'yyyy-MM-dd', 'en-US');
+    fechaSalida = formatDate(fechaSalida, 'yyyy-MM-dd', 'en-US');
+
+    this.comprobarviajero.comprovarViajeroConectado(token)
+    .subscribe(
+      (data: any) =>{
+        // console.log(data);
+        if(data == 0){
+        this.openDialogViajero();
+        }
+        if(data == 1){
+          this.consultardisponibilidad.consultarDisponibilidad(this.id_casarural, fechaEntrada, fechaSalida, comentario)
+          .subscribe(
+            data => {
+              console.log(data);
+            },
+            error =>{
+              console.log(error);
+            }
+          )
+          // console.log(fechaEntrada);
+        }
+        if(data == 'error'){
+          console.log('error');
+        }
+      },
+      error =>{
+        console.log(error);
+      }
+    )
   }
 }

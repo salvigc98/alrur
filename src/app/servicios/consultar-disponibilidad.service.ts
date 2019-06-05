@@ -10,7 +10,7 @@ export class ConsultarDisponibilidadService {
 
   constructor(public http: HttpClient,) { }
 
-  consultarDisponibilidad(id_casarural: any, fechaentrada:any, fechasalida:any){
+  consultarDisponibilidad(id_casarural: any, fechaentrada:any, fechasalida:any, comentario: string){
     let headers: any = new HttpHeaders({
       "Content-Type": "application/json"
     });
@@ -18,22 +18,23 @@ export class ConsultarDisponibilidadService {
       id_casarural: id_casarural,
       fechaentrada: fechaentrada,
       fechasalida: fechasalida,
+      comentario: comentario,
     });
 
     console.log(postParams);
 
-    // this.navegacionUrl = "http://localhost/alrur/usuarios/comprobar_propietario.php";
-    // return this.http.post(this.navegacionUrl, postParams, { headers: headers })
-    //   .pipe(map(
-    //     data => {
-    //       // console.log(data);
-    //       return data;
-    //     },
-    //     error => {
-    //       // console.log(error);
-    //       return error;
-    //     }
-    //   ));
+    this.navegacionUrl = "http://localhost/alrur/alojamientos/contactar_alojamiento.php";
+    return this.http.post(this.navegacionUrl, postParams, { headers: headers })
+      .pipe(map(
+        data => {
+          // console.log(data);
+          return data;
+        },
+        error => {
+          // console.log(error);
+          return error;
+        }
+      ));
 
 
   }

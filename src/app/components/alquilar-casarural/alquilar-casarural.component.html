@@ -17,7 +17,7 @@
 <div class="formdisp">  
     <div class="navbar navbar-expand-lg navbar-dark bg-success">
         <div class="mx-auto center" >
-          <h5>Consultar disponibilidad</h5> 
+          <h5>Contactar</h5> 
         </div>
       </div>
       <div style="margin-top: 30px;">
@@ -33,9 +33,13 @@
           <mat-datepicker-toggle matSuffix [for]="fechasalida"></mat-datepicker-toggle>
           <mat-datepicker #fechasalida></mat-datepicker>
         </mat-form-field>
-        <div class="center" style="margin-top: 20px;">
+
+        <mat-form-field class="example-full-width center" style="margin-top: 30px;">
+          <textarea matInput placeholder="Comentarios" formControlName="comentario" ></textarea>
+        </mat-form-field>
+        <div class="center" style="margin-top: 30px;">
         <button mat-button type="submit">
-            Entrar
+            Enviar
         </button>
       </div>
       </form>
@@ -43,13 +47,44 @@
       
 </div>
 
-<div class="formcontact">
+<!-- <div class="formcontact">
+  </div> -->
+
+
+  <div class="datos center">
+    <mat-card class="card">
+      <mat-card-title class="center">
+        Precio
+      </mat-card-title>
+      <mat-card-content class="center">
+        <h5>{{ alojamiento.precio }} €</h5>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card" style="margin-left: 10%;">
+      <mat-card-title class="center">
+        Capacidad
+      </mat-card-title>
+      <mat-card-content class="center">
+        <h5>{{ alojamiento.plazas }} plazas</h5>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card" style="margin-left: 10%;">
+    <mat-card-title class="center">
+      Teléfono
+    </mat-card-title>
+    <mat-card-content class="center">
+      <h5>{{ alojamiento.telefono }}</h5>
+    </mat-card-content>
+    <mat-card-content class="center" *ngIf="alojamiento.telefono2">
+        <h5>{{ alojamiento.telefono2 }}</h5>
+      </mat-card-content>
+    </mat-card>
   </div>
 
-  <div class="datos">
-
+  <div class="descripcion">
+      <p [innerHTML]="alojamiento.descripcion">
+      </p>
   </div>
-
 </div>
 
 

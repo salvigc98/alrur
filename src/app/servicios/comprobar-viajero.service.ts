@@ -32,7 +32,27 @@ export class ComprobarViajeroService {
           return error;
         }
       ));
+  }
 
+  comprovarViajeroConectado(token: any){
+    let headers: any = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+    let postParams = JSON.stringify({
+      token: token,
+    });
 
+    this.navegacionUrl = "http://localhost/alrur/usuarios/comprobar_viajero_conectado.php";
+    return this.http.post(this.navegacionUrl, postParams, { headers: headers })
+      .pipe(map(
+        data => {
+          // console.log(data);
+          return data;
+        },
+        error => {
+          // console.log(error);
+          return error;
+        }
+      ));
   }
 }
