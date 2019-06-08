@@ -1,7 +1,7 @@
 .persondiv {
     width: 33%;
     float: left;
-    height: 30%;
+    /* height: 600px; */
 }
 .example-card {
     /* max-width: 100%; */

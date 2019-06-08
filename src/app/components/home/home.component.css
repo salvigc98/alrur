@@ -16,3 +16,58 @@
     align-items: center;
     justify-content: center;
 } */
+
+/* .example-icon {
+    padding: 0 14px;
+  } */
+  
+  .remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
+
+  .space {
+    padding: 1%;
+  }
+
+  /* .mat-toolbar {
+    height: 100px !important;
+    min-height: 100px !important;
+  } */
+
+  .mat-button{
+    /* margin-top: 35px; */
+    font-size: 20px;
+    background-color: aquamarine;
+  }
+
+  .mat-form-field{
+   /* margin-top: 35px; */
+  }
+
+  /* .mat-toolbar-row{
+    align-items: center;
+  } */
+
+  .icono{
+    width: 6%;
+    /* height: 6%; */
+    /* margin-top: 35px; */
+  }
+
+  .buscador{
+    /* background-color: blue; */
+    width: 60%;
+    margin-left: 14%;
+  }
+
+  .center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+td{
+  padding: 10px;
+}

@@ -5,18 +5,11 @@
 <div class="persondiv" *ngFor="let alojamiento of alojamientos">
     <mat-card class="example-card" >
         <mat-card-header>
-          <!-- <div mat-card-avatar class="example-header-image"></div> -->
           <mat-card-title>{{ alojamiento.nombre }}</mat-card-title>
           <mat-card-subtitle>{{ alojamiento.municipio }}</mat-card-subtitle>
-          <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
         </mat-card-header>
         <img mat-card-image [src]="alojamiento.imagen" height="300px">
-        <!-- <mat-card-content>
-          <p [innerHTML]="alojamiento.descripcion">
-          </p>
-        </mat-card-content> -->
         <mat-card-actions style="text-align: right;">
-          <!-- <mat-slide-toggle>Slide me!</mat-slide-toggle> -->
           <button mat-button (click)="eliminarAlojamiento(alojamiento.Id_casarural)">
             <i class="material-icons">
               highlight_off
@@ -24,7 +17,11 @@
         </mat-card-actions>
       </mat-card>
 </div>
-<div class="persondiv">
-    <img src="../../../assets/iconos/añadir_casa.png"  class="example-card" (click)="anadirCasa()">
+
+<div class="persondiv" (click)="anadirCasa()">
+    <mat-card class="example-card" >
+        <img mat-card-image src="../../../assets/iconos/añadir_casa.png" height="400px">
+      </mat-card>
 </div>
 </div>
+
