@@ -57,3 +57,9 @@
 .fallo-formulario {
   color: red;
 }
+
+.center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

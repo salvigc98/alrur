@@ -33,7 +33,7 @@
     /* background-color: yellow; */
     border: 1px solid black;
     width: 300px;
-    height: 450px;
+    height: 770px;
     margin-left: 61%;
     margin-top: 0%;
     top: 0;
@@ -41,7 +41,7 @@
     
   }
 
-  .formcontact {
+  /* .formcontact {
     position: absolute;
     background-color: blue;
     width: 300px;
@@ -50,7 +50,7 @@
     margin-top: 320px;
     top: 0;
     left: 0;
-  }
+  } */
 
   .datos {
       position: absolute;

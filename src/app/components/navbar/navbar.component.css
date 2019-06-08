@@ -33,6 +33,22 @@
 
   .icono{
     width: 6%;
-    height: 6%;
+    /* height: 6%; */
     /* margin-top: 35px; */
   }
+
+  .buscador{
+    /* background-color: blue; */
+    width: 60%;
+    margin-left: 14%;
+  }
+
+  .center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+td{
+  padding: 10px;
+}

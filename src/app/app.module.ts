@@ -39,6 +39,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatCardModule} from '@angular/material/card';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MAT_DATE_LOCALE } from '@angular/material';
+import {MatSliderModule} from '@angular/material/slider';
 
 
 // For MDB Angular Free
@@ -76,6 +77,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatNativeDateModule,
     MatInputModule,
     MatDialogModule,
+    MatSliderModule,
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,

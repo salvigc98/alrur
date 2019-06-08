@@ -1,35 +1,50 @@
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+<div class="navbar navbar-expand-lg navbar-dark bg-success">
   <img src="../../../assets/iconos/casa_rural.png" class="icono">
 
-      <span class="remaining-space"></span>
+  <div class="buscador center">
+  <form [formGroup]="formfiltrar" (ngSubmit)="filtrarCasas()">
+      <!-- <span class="remaining-space"></span> -->
+      <table>
+        <tr>
+          <td>
         <mat-form-field>
             <mat-label>Provincia</mat-label>
-            <mat-select [(value)]="selected">
-              <mat-option>None</mat-option>
-              <mat-option value="option1">Option 1</mat-option>
-              <mat-option value="option2">Option 2</mat-option>
-              <mat-option value="option3">Option 3</mat-option>
+            <mat-select formControlName="provincia">
+              <mat-option *ngFor="let provincia of provincias" [value]="provincia.Id_provincia">{{ provincia.provincia}}</mat-option>
             </mat-select>
           </mat-form-field>
-          
-          <span class="space"></span>
-   
-        <mat-form-field>
-            <mat-label>Nº Plazas</mat-label>
-            <mat-select [(value)]="selected2">
-              <mat-option>None</mat-option>
-              <mat-option value="option1">Option 1</mat-option>
-              <mat-option value="option2">Option 2</mat-option>
-              <mat-option value="option3">Option 3</mat-option>
-            </mat-select>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput placeholder="Nº plazas" formControlName="plazas" class="input">
           </mat-form-field>
-
-        <span class="space"></span>
-    
-        <button mat-button>
+        </td>
+        <td>
+          <h6 style="margin-top: 15px;" class="center">Precio máximo</h6>
+        <mat-slider
+        class="example-margin"
+        [disabled]="disabled"
+        [invert]="invert"
+        [max]="max"
+        [min]="min"
+        [step]="step"
+        [thumbLabel]="thumbLabel"
+        [tickInterval]="tickInterval"
+        [vertical]="vertical"
+        formControlName="precio">
+        </mat-slider>
+        </td>
+        <td> 
+        <button type="submit" mat-button>
           Buscar
         </button>
+      </td>
+      </tr>
+      </table>
+      </form>
+   
+    </div>
 
     <span class="remaining-space"></span>
 
@@ -44,4 +59,4 @@
     <!-- <div *ngIf="login">
       <h1>{{ usuario }}</h1>
     </div> -->
-</nav>
+  </div>

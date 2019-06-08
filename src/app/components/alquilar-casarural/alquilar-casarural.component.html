@@ -22,6 +22,24 @@
       </div>
       <div style="margin-top: 30px;">
         <form [formGroup]="formdisp" (ngSubmit)="consultarDisp()">
+            <mat-form-field class="center">
+                <input matInput placeholder="DNI" formControlName="dni" class="input">
+            </mat-form-field>
+            <mat-form-field class="center">
+                <input matInput placeholder="Teléfono" formControlName="telefono" class="input">
+            </mat-form-field>
+            <mat-form-field class="center">
+                <input matInput placeholder="Dirección" formControlName="direccion" class="input">
+            </mat-form-field>
+            <mat-form-field class="center">
+                <input matInput placeholder="Localidad" formControlName="localidad" class="input">
+            </mat-form-field>
+            <mat-form-field class="center">
+                <input matInput placeholder="CP" formControlName="cp" class="input">
+            </mat-form-field>
+            <mat-form-field class="center">
+                <input matInput placeholder="Nº de plazas" formControlName="plazas" class="input">
+            </mat-form-field>
       <mat-form-field class="center">
           <input matInput [matDatepicker]="fechaentrada" placeholder="Fecha de entrada" formControlName="fechaentrada">
           <mat-datepicker-toggle matSuffix [for]="fechaentrada"></mat-datepicker-toggle>
@@ -34,7 +52,7 @@
           <mat-datepicker #fechasalida></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field class="example-full-width center" style="margin-top: 30px;">
+        <mat-form-field class="example-full-width center">
           <textarea matInput placeholder="Comentarios" formControlName="comentario" ></textarea>
         </mat-form-field>
         <div class="center" style="margin-top: 30px;">

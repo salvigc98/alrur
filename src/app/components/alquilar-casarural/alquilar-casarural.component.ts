@@ -27,6 +27,12 @@ export class AlquilarCasaruralComponent implements OnInit {
   fechaentrada: any;
   fechasalida: any;
   comentario: string;
+  dni: string;
+  telefono: number;
+  direccion: string;
+  localidad: string;
+  cp: number;
+  plazas: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -67,7 +73,13 @@ export class AlquilarCasaruralComponent implements OnInit {
     this.formdisp = this.fb.group({
         fechaentrada: [this.fechaentrada, [Validators.required]],
         fechasalida: [this.fechasalida, [Validators.required]],
-        comentario: [this.comentario]
+        dni: [this.dni, [Validators.required]],
+        telefono: [this.telefono, [Validators.required]],
+        direccion: [this.direccion, [Validators.required]],
+        localidad: [this.localidad, [Validators.required]],
+        cp: [this.cp, [Validators.required]],
+        plazas: [this.plazas, [Validators.required]],
+        comentario: [this.comentario],
       });
   }
 
@@ -96,6 +108,12 @@ export class AlquilarCasaruralComponent implements OnInit {
     let fechaEntrada = this.formdisp.value.fechaentrada;
     let fechaSalida = this.formdisp.value.fechasalida;
     let comentario = this.formdisp.value.comentario;
+    let dni = this.formdisp.value.dni;
+    let telefono = this.formdisp.value.telefono;
+    let direccion = this.formdisp.value.direccion;
+    let localidad = this.formdisp.value.localidad;
+    let cp = this.formdisp.value.cp;
+    let plazas = this.formdisp.value.plazas;
     fechaEntrada = formatDate(fechaEntrada, 'yyyy-MM-dd', 'en-US');
     fechaSalida = formatDate(fechaSalida, 'yyyy-MM-dd', 'en-US');
 
@@ -107,7 +125,7 @@ export class AlquilarCasaruralComponent implements OnInit {
         this.openDialogViajero();
         }
         if(data == 1){
-          this.consultardisponibilidad.consultarDisponibilidad(this.id_casarural, fechaEntrada, fechaSalida, comentario)
+          this.consultardisponibilidad.consultarDisponibilidad(this.id_casarural, dni, telefono, direccion, localidad, cp, plazas, fechaEntrada, fechaSalida, comentario, token)
           .subscribe(
             data => {
               console.log(data);
