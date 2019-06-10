@@ -3,10 +3,11 @@ import { MatDialog,MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA, MatSnackBar} 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { iguales } from '../../shared/must-match-validator/must-match-validator.component';
 
 import { ComprobarPropietarioService } from '../../../servicios/comprobar-propietario.service';
 import { RegistrarPropietarioService } from '../../../servicios/registrar-propietario.service';
-import { RecuperarContrasenaPropietariosService } from '../../../servicios/recuperar-contrasena-propietarios.service';
+import { RecuperarContrasenaService } from '../../../servicios/recuperar-contrasena.service';
 
 @Component({
   selector: 'app-login-propietario',
@@ -25,13 +26,15 @@ export class LoginPropietarioComponent implements OnInit {
   NombreRegistro:string;
   NifRegistro:string;
   DireccionRegistro:string;
-  CodigoPostalRegistro:string;
+  // CodigoPostalRegistro:string;
   TelefonoRegistro:string;
   ContrasenaRegistro:string;
   ContrasenaRegistro2:string;
   CorreoRegistro:string;
   CorreoRecuperar:string;
   submitted = false;
+  submittedRegistro = false;
+  submittedRecuperar = false;
   // comprobarFormulario: boolean;
 
   constructor(
@@ -39,7 +42,7 @@ export class LoginPropietarioComponent implements OnInit {
     public dialog: MatDialog,
     public ComprobarPropietario: ComprobarPropietarioService,
     public registrarPropietario: RegistrarPropietarioService,
-    public recuperarContrasenaPropietarios: RecuperarContrasenaPropietariosService,
+    public recuperarContrasena: RecuperarContrasenaService,
     private snackBar: MatSnackBar,
     private cookieService: CookieService,
     private router:Router,
@@ -62,12 +65,16 @@ export class LoginPropietarioComponent implements OnInit {
         NombreRegistro: [this.NombreRegistro, Validators.required],
         NifRegistro: [this.NifRegistro, Validators.required],
         ContrasenaRegistro: [this.ContrasenaRegistro, [Validators.required, Validators.minLength(6)]],
-        ContrasenaRegistro2: [this.ContrasenaRegistro2, [Validators.required, Validators.minLength(6)]],
+        ContrasenaRegistro2: [this.ContrasenaRegistro2, [Validators.required]],
         DireccionRegistro: [this.DireccionRegistro, Validators.required],
-        CodigoPostalRegistro: [this.CodigoPostalRegistro, Validators.required],
+        // CodigoPostalRegistro: [this.CodigoPostalRegistro, Validators.required],
         TelefonoRegistro: [this.TelefonoRegistro, Validators.required],
         CorreoRegistro: [this.CorreoRegistro, [Validators.required, Validators.email]]
-    });
+    },
+    {
+      validator: iguales('ContrasenaRegistro', 'ContrasenaRegistro2')
+    }
+    );
 
       this.formRecuperar = this.fb.group({
       CorreoRecuperar: [this.CorreoRecuperar, [Validators.required, Validators.email]],
@@ -76,6 +83,14 @@ export class LoginPropietarioComponent implements OnInit {
 
   get f() {
     return this.formInicio.controls;
+  }
+
+  get fregistro() {
+    return this.formRegistro.controls;
+  }
+
+  get frecuperar() {
+    return this.formRecuperar.controls;
   }
 
   onSubmitInicio() {
@@ -105,6 +120,9 @@ export class LoginPropietarioComponent implements OnInit {
           // console.log(this.usuario);
           this.dialogRef.close();
           this.router.navigate(['/', 'vistaPropietarios']);
+          this.snackBar.open('Bienvenido a Alrur', '', {
+            duration: 3000,
+          });
         }
       },
       error =>{
@@ -119,21 +137,19 @@ export class LoginPropietarioComponent implements OnInit {
   }
 
   onSubmitRegistro() {
-  //   this.submitted = true;
+    this.submittedRegistro = true;
 
-  //   if (this.formRegistro.invalid) {
-  //     return;
-  // }
-  //   this.dialogRef.close(this.formInicio.value);
-  // console.log(this.formRegistro.value);
-  let NombreRegistro = this.formRegistro.value.NombreRegistro;
-  let NifRegistro = this.formRegistro.value.NifRegistro;
-  let ContrasenaRegistro = this.formRegistro.value.ContrasenaRegistro;
-  let DireccionRegistro = this.formRegistro.value.DireccionRegistro;
-  let CodigoPostalRegistro = this.formRegistro.value.CodigoPostalRegistro;
-  let TelefonoRegistro = this.formRegistro.value.TelefonoRegistro;
-  let CorreoRegistro = this.formRegistro.value.CorreoRegistro;
-  this.registrarPropietario.registrarPropietario(NombreRegistro, NifRegistro, ContrasenaRegistro, DireccionRegistro, CodigoPostalRegistro, TelefonoRegistro, CorreoRegistro)
+    if (this.formRegistro.invalid) {
+      return;
+  }
+    let NombreRegistro = this.formRegistro.value.NombreRegistro;
+    let NifRegistro = this.formRegistro.value.NifRegistro;
+    let ContrasenaRegistro = this.formRegistro.value.ContrasenaRegistro;
+    let DireccionRegistro = this.formRegistro.value.DireccionRegistro;
+    // let CodigoPostalRegistro = this.formRegistro.value.CodigoPostalRegistro;
+    let TelefonoRegistro = this.formRegistro.value.TelefonoRegistro;
+    let CorreoRegistro = this.formRegistro.value.CorreoRegistro;
+    this.registrarPropietario.registrarPropietario(NombreRegistro, NifRegistro, ContrasenaRegistro, DireccionRegistro, TelefonoRegistro, CorreoRegistro)
     .subscribe((data:any) =>{
       if(data == 'ya_registrado'){
           this.snackBar.open('Usuario ya existente', '', {
@@ -141,7 +157,7 @@ export class LoginPropietarioComponent implements OnInit {
         });
       }
       if(data == 'correo_enviado'){
-        this.snackBar.open('Se ha enviado un email a su direeción para poder verificar la cuenta', '', {
+        this.snackBar.open('Se ha enviado un email a su dirección para poder verificar la cuenta', '', {
           duration: 3000,
         });
         this.dialogRef.close();
@@ -163,8 +179,13 @@ export class LoginPropietarioComponent implements OnInit {
   }
 
   onSubmitRecuperar(){
+    this.submittedRecuperar = true;
+
+    if (this.formRecuperar.invalid) {
+      return;
+  }
     let CorreoRecuperar = this.formRecuperar.value.CorreoRecuperar;
-    this.recuperarContrasenaPropietarios.recuperarContrasenaPropietario(CorreoRecuperar)
+    this.recuperarContrasena.recuperarContrasena(CorreoRecuperar, 'propietario')
     .subscribe((data:any) =>{
       if(data == 'correo_enviado'){
         this.snackBar.open('Se ha enviado un correo con instrucciones para restablecer la contraseña', '', {

@@ -33,6 +33,7 @@ export class AlquilarCasaruralComponent implements OnInit {
   localidad: string;
   cp: number;
   plazas: number;
+  token: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,6 +46,9 @@ export class AlquilarCasaruralComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.token = this.cookieService.get('token');
+    console.log(this.token);
     this.route.params.subscribe(
       data => {
         this.id_casarural = data.id_casarural;
@@ -104,7 +108,7 @@ export class AlquilarCasaruralComponent implements OnInit {
 
   consultarDisp() {
     // console.log(this.formdisp.value);
-    let token = this.cookieService.get('token');
+    // let token = this.cookieService.get('token');
     let fechaEntrada = this.formdisp.value.fechaentrada;
     let fechaSalida = this.formdisp.value.fechasalida;
     let comentario = this.formdisp.value.comentario;
@@ -117,7 +121,7 @@ export class AlquilarCasaruralComponent implements OnInit {
     fechaEntrada = formatDate(fechaEntrada, 'yyyy-MM-dd', 'en-US');
     fechaSalida = formatDate(fechaSalida, 'yyyy-MM-dd', 'en-US');
 
-    this.comprobarviajero.comprovarViajeroConectado(token)
+    this.comprobarviajero.comprovarViajeroConectado(this.token)
     .subscribe(
       (data: any) =>{
         // console.log(data);
@@ -125,7 +129,8 @@ export class AlquilarCasaruralComponent implements OnInit {
         this.openDialogViajero();
         }
         if(data == 1){
-          this.consultardisponibilidad.consultarDisponibilidad(this.id_casarural, dni, telefono, direccion, localidad, cp, plazas, fechaEntrada, fechaSalida, comentario, token)
+
+          this.consultardisponibilidad.consultarDisponibilidad(this.id_casarural, dni, telefono, direccion, localidad, cp, plazas, fechaEntrada, fechaSalida, comentario, this.token)
           .subscribe(
             data => {
               console.log(data);
@@ -145,4 +150,5 @@ export class AlquilarCasaruralComponent implements OnInit {
       }
     )
   }
+
 }

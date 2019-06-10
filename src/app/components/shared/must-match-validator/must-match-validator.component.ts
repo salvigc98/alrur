@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
-@Component({
-  selector: 'app-must-match-validator',
-  templateUrl: './must-match-validator.component.html',
-  styleUrls: ['./must-match-validator.component.css']
-})
-export class MustMatchValidatorComponent implements OnInit {
+export function iguales(nombre1: string, nombre2: string) {
+   return (formGroup: FormGroup) => {
+       const name1  = formGroup.controls[nombre1];
+       const name2  = formGroup.controls[nombre2];
 
-  constructor() { }
+       if (name1.errors && name2.errors && ! name2.errors.iguales){
+           return;
+       }
 
-  ngOnInit() {
+       if (name1.value !== name2.value) {
+           name2.setErrors({ iguales: true });
+       } else {
+           name2.setErrors(null);
+       }
+   };
   }
-
-}

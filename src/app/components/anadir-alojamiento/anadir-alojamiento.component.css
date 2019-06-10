@@ -1,19 +1,32 @@
 .persondiv{
-    width: 50%;
+    position: absolute;
+    width: 40%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 2%;
-    float: left;
-    height: 60%;
+    margin-left: 20%;
+    /* float: left; */
+    /* height: 60%; */
+    /* background-color: blue; */
 }
 
-table{
+/* table{
     width: 60%;
+} */
+
+.divimagenes{
+    position: absolute;
+    width: 18%;
+    /* background-color: blue; */
+    margin-left: 62%;
+    margin-top: 2%;
+    /* height: 600px; */
 }
 
 td{
     text-align: left;
+    padding: 10px;
 }
 
 .personinput{
@@ -57,6 +70,6 @@ td{
 
 button{
     width: 100%;
-    color: aliceblue;
-    background-color: blue;
+    /* color: aliceblue;
+    background-color: blue; */
 }

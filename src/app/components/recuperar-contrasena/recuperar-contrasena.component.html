@@ -1,0 +1,36 @@
+
+<div class="divrecuperar">
+        <div class="navbar navbar-expand-lg navbar-dark bg-success">
+            <div class="mx-auto center" >
+              <h5>Recuperar contraseña</h5> 
+            </div>
+          </div>
+          <div style="margin-top: 40px;">
+            <form [formGroup]="formContrasena" (ngSubmit)="cambiarContrasena()">
+              <table style="width: 100%;">
+                <tr><td>
+                <mat-form-field class="center">
+                    <input type="password" matInput placeholder="Contraseña" formControlName="contrasena1" class="input">
+                </mat-form-field>
+                <div *ngIf="submitted && f.contrasena1.errors " class="fallo-formulario">
+                    *Mínimo 6 carácteres
+                </div>
+              </td></tr>
+              <tr><td>
+                <mat-form-field class="center">
+                    <input type="password" matInput placeholder="Repite contraseña" formControlName="contrasena2" class="input">
+                </mat-form-field>
+                <div *ngIf="submitted && f.contrasena2.errors && !f.contrasena1.errors" class="fallo-formulario">
+                    *Las contraseñas deben de ser iguales
+                </div>
+              </td></tr>
+              <tr><td>
+                
+            <button mat-button type="submit" class="center">
+                Cambiar contraseña
+            </button>
+          </td></tr>
+          </table>
+          <!-- </div> -->
+          </form>
+</div>

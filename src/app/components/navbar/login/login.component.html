@@ -1,20 +1,22 @@
 <div class="principal" *ngIf="acceder">
-    <h2 mat-dialog-title class="titulo">
-      Acceder con tu cuenta
-    </h2>
+    <div class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="mx-auto center" >
+        <h5>Acceder con tu cuenta</h5>
+        </div>
+    </div>
     <form [formGroup]="formInicio" (ngSubmit)="onSubmitInicio()">
-        <mat-dialog-content class="contenido">
+        <mat-dialog-content class="contenido" >
             <mat-form-field>
                 <input matInput placeholder="Correo electrónico" formControlName="CorreoInicio" class="input">
             </mat-form-field>
             <div *ngIf="submitted && f.CorreoInicio.errors" class="fallo-formulario">
-                Correo inválido
+                *Dirección de correo no válida
             </div>
             <mat-form-field>
                 <input type="password" matInput placeholder="Contraseña" formControlName="ContrasenaInicio" class="input">
             </mat-form-field>
             <div *ngIf="submitted && f.ContrasenaInicio.errors" class="fallo-formulario">
-                Mínimo 6 carácteres
+                *Mínimo 6 carácteres
             </div>
         </mat-dialog-content>
         <mat-dialog-actions class="col-auto" >
@@ -23,7 +25,7 @@
             </button>
         </mat-dialog-actions>
     </form>
-    <div class="col-auto" class="vertical-separator">
+    <div class="col-auto" style="margin-top: 50px;">
         <h4 class="pointer" (click)="crearCuenta()">
           Crea una cuenta
         </h4>
@@ -36,26 +38,43 @@
 </div>
 
 <div class="principal" *ngIf="crear">
-    <h2 mat-dialog-title class="titulo">
-        Crea una cuenta
-    </h2>
+        <div class="navbar navbar-expand-lg navbar-dark bg-success">
+                <div class="mx-auto center" >
+                <h5>Crea una cuenta</h5>
+                </div>
+            </div>
     <form [formGroup]="formRegistro" (ngSubmit)="onSubmitRegistro()">
         <mat-dialog-content class="contenido">
             <mat-form-field>
                 <input matInput placeholder="Nombre" formControlName="NombreRegistro" class="input">
             </mat-form-field>
+            <div *ngIf="submittedRegistro && fregistro.NombreRegistro.errors" class="fallo-formulario">
+                *Este campo es obligatorio
+            </div>
             <mat-form-field>
                 <input matInput placeholder="Apellidos" formControlName="ApellidosRegistro" class="input">
             </mat-form-field>
+            <div *ngIf="submittedRegistro && fregistro.ApellidosRegistro.errors" class="fallo-formulario">
+                *Este campo es obligatorio
+            </div>
             <mat-form-field>
-                <input matInput placeholder="Contraseña" formControlName="ContrasenaRegistro" class="input">
+                <input type="password" matInput placeholder="Contraseña" formControlName="ContrasenaRegistro" class="input">
             </mat-form-field>
+            <div *ngIf="submittedRegistro && fregistro.ContrasenaRegistro.errors" class="fallo-formulario">
+                *Mínimo 6 carácteres
+            </div>
             <mat-form-field>
-                <input matInput placeholder="Repite Contraseña" formControlName="ContrasenaRegistro2" class="input">
+                <input type="password" matInput placeholder="Repite Contraseña" formControlName="ContrasenaRegistro2" class="input">
             </mat-form-field>
+            <div *ngIf="submittedRegistro && fregistro.ContrasenaRegistro2.errors && !fregistro.ContrasenaRegistro.errors" class="fallo-formulario">
+                *Las contraseñas deben de ser iguales
+                </div>
             <mat-form-field>
                 <input matInput placeholder="Correo electrónico" formControlName="CorreoRegistro" class="input">
             </mat-form-field>
+            <div *ngIf="submittedRegistro && fregistro.CorreoRegistro.errors" class="fallo-formulario">
+                *Dirección de correo no válida
+            </div>
         </mat-dialog-content>
         <mat-dialog-actions>
             <button mat-button type="submit" class="entrar">
@@ -67,17 +86,22 @@
 
 
 <div class="principal" *ngIf="recuperar">
-    <h2 mat-dialog-title class="titulo">
-        Recupera tu contraseña
-    </h2>
+        <div class="navbar navbar-expand-lg navbar-dark bg-success">
+                <div class="mx-auto center" >
+                <h5>Recupera tu contraseña</h5>
+                </div>
+            </div>
     <form [formGroup]="formRecuperar" (ngSubmit)="onSubmitRecuperar()">
         <mat-dialog-content class="contenido">
             <mat-form-field>
                 <input matInput placeholder="Correo electrónico" formControlName="CorreoRecuperar" class="input">
             </mat-form-field>
+            <div *ngIf="submittedRecuperar && frecuperar.CorreoRecuperar.errors" class="fallo-formulario">
+                *Dirección de correo no válida
+            </div>
         </mat-dialog-content>
         <mat-dialog-actions>
-            <button mat-button type="submit" class="entrar">
+            <button mat-button type="submit" class="entrar" style="width: 100%; margin-left: 0">
                 Enviar correo de recuperación
             </button>
         </mat-dialog-actions>

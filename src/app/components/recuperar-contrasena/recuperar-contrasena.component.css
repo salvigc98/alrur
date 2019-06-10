@@ -1,0 +1,22 @@
+.divrecuperar{
+    width: 300px;
+    height: 400px;
+    /* background-color: blue; */
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 1px solid black;
+}
+
+td{
+    text-align: center;
+    padding: 10px;
+}
+/* .center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */

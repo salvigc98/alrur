@@ -34,16 +34,16 @@ export class AnadirAlojamientoService {
     // console.log(postParams);
     this.navegacionUrl = "http://localhost/alrur/alojamientos/anadir_alojamiento.php";
     return this.http.post(this.navegacionUrl, postParams, { headers: headers })
-      .subscribe(
+      .pipe(map(
         data => {
-          console.log(data);
-          // return data;
+          // console.log(data);
+          return data;
         },
         error => {
-          console.log(error);
-          // return error;
+          // console.log(error);
+          return error;
         }
-      );
+      ));
 
 
   }

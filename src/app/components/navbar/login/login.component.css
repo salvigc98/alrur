@@ -1,26 +1,21 @@
 .titulo{
     color: aqua;
 }
-/* 
+
 .contenido{
-    position: relative;
-    align-items: center;
-} */
+    margin-top: 40px;
+}
 
 .principal{
     text-align: center;
 }
 
 .entrar{
-    width: 100%;
-    color: aliceblue;
-    background-color: blue;
+    width: 80%;
+    /* color: aliceblue;
+    background-color:#3D4EAE; */
+    margin-left: 10%;
 }
-
-.vertical-separator {
-    /* position: relative; */
-      margin-top: 10%;
-  }
 
   .pointer{
       cursor: pointer;

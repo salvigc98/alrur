@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { FormGroup,FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { MatDialog,MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 
 
 // Servicios
@@ -29,6 +30,7 @@ export class AnadirAlojamientoComponent implements OnInit {
   plazas: number;
   descripcion: string;
   urls = [];
+  submitted: boolean = false;
 
   config: AngularEditorConfig = {
     editable: true,
@@ -59,6 +61,7 @@ export class AnadirAlojamientoComponent implements OnInit {
     public obtenerLocalidadesProvincias: ObtenerLocalidadesProvinciasService,
     public anadiralojamiento: AnadirAlojamientoService,
     private fb: FormBuilder,
+    private snackBar: MatSnackBar,
     private cookieService: CookieService,
     ) { }
 
@@ -78,13 +81,17 @@ export class AnadirAlojamientoComponent implements OnInit {
       provincia: [this.provincia, [Validators.required]],
       localidad: [this.localidad, [Validators.required]],
       telefono: [this.telefono, [Validators.required]],
-      telefono2: [this.telefono2, [Validators.required]],
-      correo: [this.correo, [Validators.required]],
+      telefono2: [this.telefono2],
+      correo: [this.correo, [Validators.required, Validators.email]],
       precio: [this.precio, [Validators.required]],
       plazas: [this.plazas, [Validators.required]],
       descripcion: [this.descripcion, [Validators.required]],
       // ContrasenaInicio: [this.ContrasenaInicio, [Validators.required, Validators.minLength(6)]]
     });
+  }
+
+  get f() {
+    return this.formNuevoAlojamiento.controls;
   }
 
   cargarLocalidad(idProvincia){
@@ -125,6 +132,13 @@ export class AnadirAlojamientoComponent implements OnInit {
     }
   }
   anadirAlojamiento() {
+
+    this.submitted = true;
+
+    if (this.formNuevoAlojamiento.invalid || this.urls.length == 0) {
+      return;
+  }
+
     let token = this.cookieService.get('token');
     let nombre = this.formNuevoAlojamiento.value.nombre;
     let localidad = this.formNuevoAlojamiento.value.localidad;
@@ -139,8 +153,26 @@ export class AnadirAlojamientoComponent implements OnInit {
     let imagen2 = this.urls[2];
     let imagen3 = this.urls[3];
     let imagen4 = this.urls[4];
-    this.anadiralojamiento.anadirAlojamiento(token, nombre, localidad, telefono, telefono2, correo, precio, plazas, descripcion, imagen0, imagen1, imagen2, imagen3, imagen4);
-    // console.log(this.urls[0]);
-    // console.log(this.formNuevoAlojamiento.value);
+    this.anadiralojamiento.anadirAlojamiento(token, nombre, localidad, telefono, telefono2, correo, precio, plazas, descripcion, imagen0, imagen1, imagen2, imagen3, imagen4)
+    .subscribe(
+      (data: string) =>{
+        if(data == 'exito'){
+          this.snackBar.open('Alojamiento añadido con éxito', '', {
+            duration: 3000,
+          });
+        }
+        if(data == 'error'){
+          this.snackBar.open('Hubo un error mientros se añadía el alojamiento', '', {
+            duration: 3000,
+          });
+        }
+      },
+      error =>{
+        this.snackBar.open('Fallo al conectar con el servidor', '', {
+        duration: 3000,
+      }
+    )
   }
+    );
+}
 }

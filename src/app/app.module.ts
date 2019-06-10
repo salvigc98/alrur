@@ -12,10 +12,11 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/navbar/login/login.component';
 import { LoginPropietarioComponent } from './components/navbar/login-propietario/login-propietario.component';
-import { MustMatchValidatorComponent } from './components/shared/must-match-validator/must-match-validator.component';
+// import { MustMatchValidatorComponent } from './components/shared/must-match-validator/must-match-validator.component';
 import { VistaPropietariosComponent } from './components/vista-propietarios/vista-propietarios.component';
 import { AnadirAlojamientoComponent } from './components/anadir-alojamiento/anadir-alojamiento.component';
 import { AlquilarCasaruralComponent } from './components/alquilar-casarural/alquilar-casarural.component';
+import { RecuperarContrasenaComponent } from './components/recuperar-contrasena/recuperar-contrasena.component';
 // import { RegistroComponent } from './components/navbar/registro/registro.component';
 
 // // import { Dialogo } from './components/navbar/navbar.component'
@@ -43,10 +44,13 @@ import {MatSliderModule} from '@angular/material/slider';
 
 
 // For MDB Angular Free
-import {  CarouselModule, WavesModule } from 'angular-bootstrap-md';
+import {  CarouselModule, ButtonsModule, WavesModule, IconsModule } from 'angular-bootstrap-md';
+// MDB Angular Free
+// import { ButtonsModule, WavesModule, IconsModule } from 'angular-bootstrap-md'
 
 
 import { AngularEditorModule } from '@kolkov/angular-editor';
+
 // import es from '@angular/common/locales/es';
 
 
@@ -60,11 +64,13 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     LoginComponent,
     // RegistroComponent,
     HomeComponent,
-    MustMatchValidatorComponent,
+    // MustMatchValidatorComponent,
     LoginPropietarioComponent,
     VistaPropietariosComponent,
     AnadirAlojamientoComponent,
-    AlquilarCasaruralComponent
+    AlquilarCasaruralComponent,
+    RecuperarContrasenaComponent,
+
   ],
   imports: [
     AppRoutingModule,
@@ -87,6 +93,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatSlideToggleModule,
     AngularEditorModule,
     CarouselModule,
+
   ],
   providers: [
     CookieService,

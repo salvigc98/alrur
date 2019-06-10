@@ -4,7 +4,7 @@
 
 <form [formGroup]="formNuevoAlojamiento" (ngSubmit)="anadirAlojamiento()">
 <div class="persondiv">
-  <table>
+  <table style="width: 100%;">
     <tr>
       <td>
         <label>Nombre</label>
@@ -12,10 +12,13 @@
       <td>
     <mat-form-field class="personinput">
       <input matInput type="text" placeholder="Nombre:" formControlName="nombre">
-      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
         <mat-icon>close</mat-icon>
-      </button>
+      </button> -->
     </mat-form-field>
+    <div *ngIf="submitted && f.nombre.errors" class="fallo-formulario">
+        *Este campo es obligatorio
+    </div>
       </td>
   </tr>
   <tr>
@@ -26,6 +29,9 @@
           <mat-option *ngFor="let provincia of provincias" [value]="provincia.Id_provincia">{{ provincia.provincia }}</mat-option>
         </mat-select>
     </mat-form-field>
+    <div *ngIf="submitted && f.provincia.errors" class="fallo-formulario">
+        *Este campo es obligatorio
+    </div>
     </td>
     <td>
     <mat-form-field class="personinput">
@@ -34,6 +40,9 @@
           <mat-option *ngFor="let localidad of localidades" [value]="localidad.id_localidad">{{ localidad.municipio }}</mat-option>
         </mat-select>
       </mat-form-field>
+      <div *ngIf="submitted && f.localidad.errors" class="fallo-formulario">
+          *Este campo es obligatorio
+      </div>
     </td>
   </tr>
   <tr>
@@ -42,11 +51,14 @@
       </td>
       <td>
     <mat-form-field class="personinput">
-      <input matInput type="text" placeholder="Telefono:" formControlName="telefono">
-      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <input matInput type="number" placeholder="Telefono:" formControlName="telefono">
+      <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
         <mat-icon>close</mat-icon>
-      </button>
+      </button> -->
     </mat-form-field>
+    <div *ngIf="submitted && f.telefono.errors" class="fallo-formulario">
+        *Este campo es obligatorio
+    </div>
       </td>
   </tr>
   <tr>
@@ -55,10 +67,10 @@
       </td>
       <td>
     <mat-form-field class="personinput">
-      <input matInput type="text" placeholder="2º Telefono:" formControlName="telefono2">
-      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <input type="number" matInput type="number" placeholder="2º Telefono:" formControlName="telefono2">
+      <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
         <mat-icon>close</mat-icon>
-      </button>
+      </button> -->
     </mat-form-field>
       </td>
   </tr>
@@ -69,10 +81,13 @@
       <td>
     <mat-form-field class="personinput">
       <input matInput type="text" placeholder="Correo:" formControlName="correo">
-      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
         <mat-icon>close</mat-icon>
-      </button>
+      </button> -->
     </mat-form-field>
+    <div *ngIf="submitted && f.correo.errors" class="fallo-formulario">
+        *Correo no válido
+    </div>
       </td>
   </tr>
   <tr>
@@ -81,11 +96,14 @@
     </td>
     <td>
   <mat-form-field class="personinput">
-    <input matInput type="text" placeholder="Precio:" formControlName="precio">
-    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+    <input type="number" matInput type="number" placeholder="Precio:" formControlName="precio">
+    <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
       <mat-icon>close</mat-icon>
-    </button>
+    </button> -->
   </mat-form-field>
+  <div *ngIf="submitted && f.precio.errors" class="fallo-formulario">
+      *Este campo es obligatorio
+  </div>
     </td>
 </tr>
 <tr>
@@ -94,38 +112,50 @@
   </td>
   <td>
 <mat-form-field class="personinput">
-  <input matInput type="text" placeholder="Nº de plazas" formControlName="plazas">
-  <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+  <input type="number" matInput type="number" placeholder="Nº de plazas" formControlName="plazas">
+  <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
     <mat-icon>close</mat-icon>
-  </button>
+  </button> -->
 </mat-form-field>
+<div *ngIf="submitted && f.plazas.errors" class="fallo-formulario">
+    *Este campo es obligatorio
+</div>
   </td>
 </tr>
+<tr>
+    <td colspan="2">
+        <angular-editor formControlName="descripcion" style="width: 100%" [config]="config"></angular-editor>
+        <div *ngIf="submitted && f.descripcion.errors" class="fallo-formulario">
+            *Este campo es obligatorio
+        </div>
+    </td>
+  </tr>
+  <tr>
+      <td colspan="2">
+          <button mat-button type="submit">
+              Añadir
+          </button>
+      </td>
+    </tr>
 </table>
-  
 </div>
+<div class="divimagenes">
+    <div>
 
-<div class="persondiv" >
-    <angular-editor formControlName="descripcion" style="width: 90%" [config]="config"></angular-editor>
-</div>
+        <img *ngFor='let url of urls' [src]="url" height="200px" width="100%">
 
-<div style="position: absolute; float: left; top: 60%;">
-
-<img *ngFor='let url of urls' [src]="url" width="20%">
-
-<div class="browse-btn" *ngIf="urls.length < 5">
-
-    <input id="cameraImg" type='file' (change)="onSelectFile($event)" multiple >
-    <div class="browse-image">
-        <img src="../../../assets/iconos/camara.png" width="100%" />
-    </div>
-</div>
-</div>
-
-<div class="personboton">
-<button mat-button type="submit">
-    Añadir
-</button>
+        <div *ngIf="submitted && urls.length == 0" class="fallo-formulario">
+            *Debe de haber como mínimo una imagen
+        </div>
+        
+        <div *ngIf="urls.length < 5">
+        
+            <input id="cameraImg" type='file' (change)="onSelectFile($event)" multiple >
+            <div class="browse-image center">
+                <img src="../../../assets/iconos/camara.png" width="80%" />
+            </div>
+        </div>
+        </div>
 </div>
 </form>
 

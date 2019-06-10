@@ -10,7 +10,7 @@ export class RegistrarPropietarioService {
 
   constructor(public http: HttpClient,) { }
 
-  registrarPropietario(NombreRegistro:any, NifRegistro:any, ContrasenaRegistro:any, DireccionRegistro:any, CodigoPostalRegistro:any, TelefonoRegistro:any, CorreoRegistro:any){
+  registrarPropietario(NombreRegistro:any, NifRegistro:any, ContrasenaRegistro:any, DireccionRegistro:any, TelefonoRegistro:any, CorreoRegistro:any){
     let headers: any = new HttpHeaders({
       "Content-Type": "application/json"
     });
@@ -19,7 +19,6 @@ export class RegistrarPropietarioService {
       NifRegistro: NifRegistro,
       ContrasenaRegistro: ContrasenaRegistro,
       DireccionRegistro: DireccionRegistro,
-      CodigoPostalRegistro: CodigoPostalRegistro,
       TelefonoRegistro: TelefonoRegistro,
       CorreoRegistro: CorreoRegistro,
     });

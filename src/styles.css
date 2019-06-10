@@ -63,3 +63,15 @@
   align-items: center;
   justify-content: center;
 }
+
+.cerrarsesion{
+  float: left;
+  cursor: pointer;
+}
+
+.mat-button{
+  /* margin-top: 35px; */
+  font-size: 20px;
+  background-color:#3D4EAE;
+  color: aliceblue;
+}

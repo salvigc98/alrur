@@ -2,12 +2,13 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog,MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { iguales } from '../../shared/must-match-validator/must-match-validator.component';
 
 // Servicios
 
 import { ComprobarViajeroService } from '../../../servicios/comprobar-viajero.service';
 import { RegistrarViajeroService } from '../../../servicios/registrar-viajero.service';
-import { RecuperarContrasenaViajerosService } from '../../../servicios/recuperar-contrasena-viajeros.service';
+import { RecuperarContrasenaService } from '../../../servicios/recuperar-contrasena.service';
 
 @Component({
   selector: 'app-login',
@@ -31,24 +32,18 @@ export class LoginComponent implements OnInit {
   CorreoRegistro:string;
   CorreoRecuperar:string;
   submitted = false;
-  // comprobarFormulario: boolean;
+  submittedRegistro = false;
+  submittedRecuperar = false;
 
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
     public comprobarViajero: ComprobarViajeroService,
     public registrarViajero: RegistrarViajeroService,
-    public RecuperarContrasenaViajero: RecuperarContrasenaViajerosService,
+    public RecuperarContrasena: RecuperarContrasenaService,
     private snackBar: MatSnackBar,
     private cookieService: CookieService,
     private dialogRef: MatDialogRef<LoginComponent>,){}
-  //     @Inject(MAT_DIALOG_DATA) data) {
-  //   this.CorreoInicio = data.CorreoInicio;
-  //   this.ContrasenaInicio = data.ContrasenaInicio;
-  //  }
-
-  // ngOnInit() {
-  // }
 
   ngOnInit() {
       this.formInicio = this.fb.group({
@@ -62,7 +57,11 @@ export class LoginComponent implements OnInit {
         ContrasenaRegistro: [this.ContrasenaRegistro, [Validators.required, Validators.minLength(6)]],
         ContrasenaRegistro2: [this.ContrasenaRegistro2, [Validators.required, Validators.minLength(6)]],
         CorreoRegistro: [this.CorreoRegistro, [Validators.required, Validators.email]]
-      });
+      },
+      {
+        validator: iguales('ContrasenaRegistro', 'ContrasenaRegistro2')
+      }
+      );
 
       this.formRecuperar = this.fb.group({
         CorreoRecuperar: [this.CorreoRecuperar, [Validators.required, Validators.email]],
@@ -72,6 +71,13 @@ export class LoginComponent implements OnInit {
   get f() {
     return this.formInicio.controls;
   }
+  get fregistro() {
+    return this.formRegistro.controls;
+  }
+
+  get frecuperar() {
+    return this.formRecuperar.controls;
+  }
 
   onSubmitInicio() {
     this.submitted = true;
@@ -79,26 +85,22 @@ export class LoginComponent implements OnInit {
     if (this.formInicio.invalid) {
       return;
   }
-    // this.dialogRef.close(this.formInicio.value);
-    // Datos de inicio de sesión
+  
     let CorreoInicio = this.formInicio.value.CorreoInicio;
     let ContrasenaInicio = this.formInicio.value.ContrasenaInicio;
     this.comprobarViajero.comprovarViajero(CorreoInicio, ContrasenaInicio)
     .subscribe(
       (data:any) =>{
-        // console.log(data[0]['token']);
         if(data == 'error'){
           this.snackBar.open('Usuario o contraseña incorrectos', '', {
             duration: 3000,
           });
         }else{
           this.cookieService.set('token', data[0]['token']);
-          console.log(this.cookieService.get('token'));
-          // this.cookieService.set('usuario', data[0]['nombre']);
-          // console.log(this.cookieService.get('usuario'));
-          // this.usuario = data[0]['nombre'];
-          // console.log(this.usuario);
           this.dialogRef.close();
+          this.snackBar.open('Bienvenido a Alrur', '', {
+            duration: 3000,
+          });
         }
       },
       error =>{
@@ -106,25 +108,22 @@ export class LoginComponent implements OnInit {
         this.snackBar.open('Fallo al conectar con el servidor', '', {
           duration: 3000,
         });
-        console.log(error);
       }
       }
     );
   }
 
   onSubmitRegistro() {
-  //   this.submitted = true;
+    this.submittedRegistro = true;
 
-  //   if (this.formRegistro.invalid) {
-  //     return;
-  // }
-  //   this.dialogRef.close(this.formInicio.value);
-  // console.log(this.formRegistro.value);
-  let NombreRegistro = this.formRegistro.value.NombreRegistro;
-  let ApellidosRegistro = this.formRegistro.value.ApellidosRegistro;
-  let ContrasenaRegistro = this.formRegistro.value.ContrasenaRegistro;
-  let CorreoRegistro = this.formRegistro.value.CorreoRegistro;
-  this.registrarViajero.registrarViajero(NombreRegistro, ApellidosRegistro, ContrasenaRegistro, CorreoRegistro)
+    if (this.formRegistro.invalid) {
+      return;
+  }
+    let NombreRegistro = this.formRegistro.value.NombreRegistro;
+    let ApellidosRegistro = this.formRegistro.value.ApellidosRegistro;
+    let ContrasenaRegistro = this.formRegistro.value.ContrasenaRegistro;
+    let CorreoRegistro = this.formRegistro.value.CorreoRegistro;
+    this.registrarViajero.registrarViajero(NombreRegistro, ApellidosRegistro, ContrasenaRegistro, CorreoRegistro)
     .subscribe((data:any) =>{
       if(data == 'ya_registrado'){
           this.snackBar.open('Usuario ya existente', '', {
@@ -148,14 +147,19 @@ export class LoginComponent implements OnInit {
           this.snackBar.open('Fallo al conectar con el servidor', '', {
             duration: 3000,
           });
-          console.log(error);
         }
       });
   }
 
   onSubmitRecuperar(){
+    this.submittedRecuperar = true;
+
+    if (this.formRecuperar.invalid) {
+      return;
+  }
+
     let CorreoRecuperar = this.formRecuperar.value.CorreoRecuperar;
-    this.RecuperarContrasenaViajero.recuperarContrasenaViajero(CorreoRecuperar)
+    this.RecuperarContrasena.recuperarContrasena(CorreoRecuperar, 'viajero')
     .subscribe((data:any) =>{
       if(data == 'correo_enviado'){
         this.snackBar.open('Se ha enviado un correo con instrucciones para restablecer la contraseña', '', {
