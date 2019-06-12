@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
-import { LoginComponent } from '../navbar/login/login.component';
-import { LoginPropietarioComponent } from '../navbar/login-propietario/login-propietario.component';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { FormGroup, FormBuilder } from '@angular/forms';
+
+// Componentes
+
+import { LoginComponent } from '../login/login.component';
+import { LoginPropietarioComponent } from '../login-propietario/login-propietario.component';
+
 // Servicios
 
 import { ListarAlojamientosService } from '../../servicios/listar-alojamientos.service';
@@ -51,7 +55,6 @@ export class HomeComponent implements OnInit {
 
     const dialogConfig = new MatDialogConfig();
 
-    // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
     dialogConfig.width = '350px';
@@ -61,7 +64,7 @@ export class HomeComponent implements OnInit {
   };
 
 
-  const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
+    const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
 
 
 }
@@ -70,7 +73,6 @@ openDialogPropietario() {
 
   const dialogConfig = new MatDialogConfig();
 
-  // dialogConfig.disableClose = true;
   dialogConfig.autoFocus = true;
 
   dialogConfig.width = '350px';
@@ -80,7 +82,7 @@ openDialogPropietario() {
 };
 
 
-const dialogRef = this.dialog.open(LoginPropietarioComponent, dialogConfig);
+  const dialogRef = this.dialog.open(LoginPropietarioComponent, dialogConfig);
 
 
 }
@@ -91,33 +93,26 @@ const dialogRef = this.dialog.open(LoginPropietarioComponent, dialogConfig);
     .subscribe(
       data =>{
         this.alojamientos = data;
-        console.log(this.alojamientos.length);
       },
       error =>{
-        console.log(error);
       });
 
     this.obtenerProvincias.obtenerLocalidadesProvincias('provincia')
     .subscribe(
       data => {
         this.provincias = data;
-        // console.log(this.provincias);
       },
       error => {
-        console.log(error);
       }
     );
 
     this.consultarPrecio.consultarPrecio()
     .subscribe(
       data => {
-        // this.provincias = data;
-        console.log(data);
         this.max = data['maximo'];
         this.min = data['minimo'];
       },
       error => {
-        console.log(error);
       }
     );
 
@@ -129,7 +124,6 @@ const dialogRef = this.dialog.open(LoginPropietarioComponent, dialogConfig);
   }
 
   verAlojamiento(id_casarural){
-    // console.log(id_casarural);
     this.router.navigate(['/', 'alquilarCasarural', id_casarural]);
   }
 
@@ -140,11 +134,9 @@ const dialogRef = this.dialog.open(LoginPropietarioComponent, dialogConfig);
     this.filtrarcasas.filtrarCasas(provincia, plazas, precio)
     .subscribe(
       data =>{
-        // console.log(data);
         this.alojamientos = data;
       },
       error =>{
-        console.log(error);
       }
     )
   }

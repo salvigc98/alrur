@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog,MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-eliminar-alojamiento',
@@ -9,7 +9,6 @@ import { MatDialog,MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA, MatSnackBar} 
 export class EliminarAlojamientoComponent implements OnInit {
 
   constructor(
-    private dialog: MatDialog,
     private dialogRef: MatDialogRef<EliminarAlojamientoComponent>
   ) { }
 
@@ -18,6 +17,5 @@ export class EliminarAlojamientoComponent implements OnInit {
 
   comprobarEliminar(data) {
     this.dialogRef.close(data);
-    // console.log(data);
   }
 }

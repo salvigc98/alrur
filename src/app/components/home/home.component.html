@@ -1,9 +1,7 @@
 <div class="navbar navbar-expand-lg navbar-dark bg-success">
-    <img src="../../../assets/iconos/casa_rural.png" class="icono">
   
     <div class="buscador center">
     <form [formGroup]="formfiltrar" (ngSubmit)="filtrarCasas()">
-        <!-- <span class="remaining-space"></span> -->
         <table>
           <tr>
             <td>
@@ -23,7 +21,6 @@
             <h6 style="margin-top: 15px; color:#3D4EAE" class="center">Precio máximo</h6>
           <mat-slider
           color="primary"
-          [disabled]="disabled"
           [invert]="invert"
           [max]="max"
           [min]="min"
@@ -45,33 +42,26 @@
      
       </div>
   
-      <span class="remaining-space"></span>
-  
-      <mat-form-field>
+      <div style="margin-left: 10%">
+      <mat-form-field >
         <mat-label>Iniciar sesión</mat-label>
         <mat-select [(value)]="selected3">
           <mat-option value="viajero" (click)="openDialogViajero()">Viajero</mat-option>
           <mat-option value="propietario" (click)="openDialogPropietario()">Propietario</mat-option>
         </mat-select>
       </mat-form-field>
+    </div>
   
-      <!-- <div *ngIf="login">
-        <h1>{{ usuario }}</h1>
-      </div> -->
     </div>
 <div style="width: 80%; margin-left: 10%; margin-top: 30px;">
 <div class="persondiv" *ngFor="let alojamiento of alojamientos" (click)="verAlojamiento(alojamiento.Id_casarural)">
     <mat-card class="example-card" >
         <mat-card-header>
-          <!-- <div mat-card-avatar class="example-header-image"></div> -->
           <mat-card-title>{{ alojamiento.nombre }}</mat-card-title>
           <mat-card-subtitle>{{ alojamiento.municipio }}</mat-card-subtitle>
         </mat-card-header>
         <img mat-card-image [src]="alojamiento.imagen" height="300px">
         <mat-card-content>
-          <!-- <p [innerHTML]="alojamiento.descripcion">
-          </p> -->
-          <!-- <h5>Plazas: {{ alojamiento.plazas}} </h5> -->
           <h5 style="text-align: right;">Plazas: {{ alojamiento.plazas}}</h5>
           <h5 style="text-align: right;">Precio: {{ alojamiento.precio}} €</h5>
         </mat-card-content>

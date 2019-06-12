@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { FormGroup,FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
-import { MatDialog,MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
+import {  MatSnackBar } from '@angular/material';
 
 
 // Servicios
@@ -29,8 +29,8 @@ export class AnadirAlojamientoComponent implements OnInit {
   precio: number;
   plazas: number;
   descripcion: string;
-  urls = [];
-  submitted: boolean = false;
+  urls: any = [];
+  submitted = false;
 
   config: AngularEditorConfig = {
     editable: true,
@@ -39,20 +39,20 @@ export class AnadirAlojamientoComponent implements OnInit {
     minHeight: '5rem',
     placeholder: 'Descripción...',
     translate: 'no',
-    uploadUrl: 'v1/images', // if needed
-    customClasses: [ // optional
+    uploadUrl: 'v1/images',
+    customClasses: [
       {
-        name: "quote",
-        class: "quote",
+        name: 'quote',
+        class: 'quote',
       },
       {
         name: 'redText',
         class: 'redText'
       },
       {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
       },
     ]
   };
@@ -68,10 +68,10 @@ export class AnadirAlojamientoComponent implements OnInit {
   ngOnInit() {
     this.obtenerLocalidadesProvincias.obtenerLocalidadesProvincias('provincia')
     .subscribe(
-      data =>{
+      data => {
         this.provincias = data;
       },
-      error =>{
+      error => {
 
       }
     );
@@ -86,7 +86,6 @@ export class AnadirAlojamientoComponent implements OnInit {
       precio: [this.precio, [Validators.required]],
       plazas: [this.plazas, [Validators.required]],
       descripcion: [this.descripcion, [Validators.required]],
-      // ContrasenaInicio: [this.ContrasenaInicio, [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -94,12 +93,11 @@ export class AnadirAlojamientoComponent implements OnInit {
     return this.formNuevoAlojamiento.controls;
   }
 
-  cargarLocalidad(idProvincia){
+  cargarLocalidad(idProvincia) {
     this.obtenerLocalidadesProvincias.obtenerLocalidadesProvincias(idProvincia)
     .subscribe(
-      data =>{
+      data => {
         this.localidades = data;
-        // console.log(this.localidades);
       },
       error =>{
 
@@ -109,23 +107,23 @@ export class AnadirAlojamientoComponent implements OnInit {
 
   onSelectFile(event) {
 
-    if (event.target.files.length === 0)
+    if (event.target.files.length === 0) {
       return;
+    }
  
-    var mimeType = event.target.files[0].type;
+    const mimeType = event.target.files[0].type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
 
     if (event.target.files && event.target.files[0]) {
-        var filesAmount = event.target.files.length;
+        const filesAmount = event.target.files.length;
         for (let i = 0; i < filesAmount; i++) {
-                var reader = new FileReader();
+                const reader = new FileReader();
 
                 reader.onload = (event) => {
-                  // console.log(event.target['result']);
                    this.urls.push(event.target['result']);
-                }
+                },
 
                 reader.readAsDataURL(event.target.files[i]);
         }
@@ -135,43 +133,44 @@ export class AnadirAlojamientoComponent implements OnInit {
 
     this.submitted = true;
 
-    if (this.formNuevoAlojamiento.invalid || this.urls.length == 0) {
+    if (this.formNuevoAlojamiento.invalid || this.urls.length === 0) {
       return;
   }
 
-    let token = this.cookieService.get('token');
-    let nombre = this.formNuevoAlojamiento.value.nombre;
-    let localidad = this.formNuevoAlojamiento.value.localidad;
-    let telefono = this.formNuevoAlojamiento.value.telefono;
-    let telefono2 = this.formNuevoAlojamiento.value.telefono2;
-    let correo = this.formNuevoAlojamiento.value.correo;
-    let precio = this.formNuevoAlojamiento.value.precio;
-    let plazas = this.formNuevoAlojamiento.value.plazas;
-    let descripcion = this.formNuevoAlojamiento.value.descripcion;
-    let imagen0 = this.urls[0];
-    let imagen1 = this.urls[1];
-    let imagen2 = this.urls[2];
-    let imagen3 = this.urls[3];
-    let imagen4 = this.urls[4];
+    const token = this.cookieService.get('token');
+    const nombre = this.formNuevoAlojamiento.value.nombre;
+    const localidad = this.formNuevoAlojamiento.value.localidad;
+    const telefono = this.formNuevoAlojamiento.value.telefono;
+    const telefono2 = this.formNuevoAlojamiento.value.telefono2;
+    const correo = this.formNuevoAlojamiento.value.correo;
+    const precio = this.formNuevoAlojamiento.value.precio;
+    const plazas = this.formNuevoAlojamiento.value.plazas;
+    const descripcion = this.formNuevoAlojamiento.value.descripcion;
+    const imagen0 = this.urls[0];
+    const imagen1 = this.urls[1];
+    const imagen2 = this.urls[2];
+    const imagen3 = this.urls[3];
+    const imagen4 = this.urls[4];
+// tslint:disable-next-line: max-line-length
     this.anadiralojamiento.anadirAlojamiento(token, nombre, localidad, telefono, telefono2, correo, precio, plazas, descripcion, imagen0, imagen1, imagen2, imagen3, imagen4)
     .subscribe(
-      (data: string) =>{
-        if(data == 'exito'){
+      (data: string) => {
+        if (data === 'exito') {
           this.snackBar.open('Alojamiento añadido con éxito', '', {
             duration: 3000,
           });
         }
-        if(data == 'error'){
+        if (data === 'error') {
           this.snackBar.open('Hubo un error mientros se añadía el alojamiento', '', {
             duration: 3000,
           });
         }
       },
-      error =>{
+      error => {
         this.snackBar.open('Fallo al conectar con el servidor', '', {
         duration: 3000,
       }
-    )
+    );
   }
     );
 }

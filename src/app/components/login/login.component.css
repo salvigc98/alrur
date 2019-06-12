@@ -1,7 +1,3 @@
-.titulo{
-    color: aqua;
-}
-
 .contenido{
     margin-top: 40px;
 }
@@ -12,8 +8,6 @@
 
 .entrar{
     width: 80%;
-    /* color: aliceblue;
-    background-color:#3D4EAE; */
     margin-left: 10%;
 }
 

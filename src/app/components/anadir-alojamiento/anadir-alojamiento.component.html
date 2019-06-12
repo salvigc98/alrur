@@ -12,9 +12,6 @@
       <td>
     <mat-form-field class="personinput">
       <input matInput type="text" placeholder="Nombre:" formControlName="nombre">
-      <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-        <mat-icon>close</mat-icon>
-      </button> -->
     </mat-form-field>
     <div *ngIf="submitted && f.nombre.errors" class="fallo-formulario">
         *Este campo es obligatorio
@@ -52,9 +49,6 @@
       <td>
     <mat-form-field class="personinput">
       <input matInput type="number" placeholder="Telefono:" formControlName="telefono">
-      <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-        <mat-icon>close</mat-icon>
-      </button> -->
     </mat-form-field>
     <div *ngIf="submitted && f.telefono.errors" class="fallo-formulario">
         *Este campo es obligatorio
@@ -68,9 +62,6 @@
       <td>
     <mat-form-field class="personinput">
       <input type="number" matInput type="number" placeholder="2º Telefono:" formControlName="telefono2">
-      <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-        <mat-icon>close</mat-icon>
-      </button> -->
     </mat-form-field>
       </td>
   </tr>
@@ -81,9 +72,6 @@
       <td>
     <mat-form-field class="personinput">
       <input matInput type="text" placeholder="Correo:" formControlName="correo">
-      <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-        <mat-icon>close</mat-icon>
-      </button> -->
     </mat-form-field>
     <div *ngIf="submitted && f.correo.errors" class="fallo-formulario">
         *Correo no válido
@@ -97,9 +85,6 @@
     <td>
   <mat-form-field class="personinput">
     <input type="number" matInput type="number" placeholder="Precio:" formControlName="precio">
-    <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-      <mat-icon>close</mat-icon>
-    </button> -->
   </mat-form-field>
   <div *ngIf="submitted && f.precio.errors" class="fallo-formulario">
       *Este campo es obligatorio
@@ -113,9 +98,6 @@
   <td>
 <mat-form-field class="personinput">
   <input type="number" matInput type="number" placeholder="Nº de plazas" formControlName="plazas">
-  <!-- <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-    <mat-icon>close</mat-icon>
-  </button> -->
 </mat-form-field>
 <div *ngIf="submitted && f.plazas.errors" class="fallo-formulario">
     *Este campo es obligatorio

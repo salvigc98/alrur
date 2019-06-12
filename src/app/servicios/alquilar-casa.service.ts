@@ -5,21 +5,32 @@ import {map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ComprobarPropietarioService {
+export class AlquilarCasaService {
   navegacionUrl: any;
 
   constructor(public http: HttpClient,) { }
 
-  comprobarPropietario(correo:any, contrasena:any){
+  AlquilarCasa(id_casarural: any, dni: string, telefono: number, direccion: string, localidad: string, cp: number, plazas: number, fechaentrada:any, fechasalida:any, comentario: string, token: any){
     let headers: any = new HttpHeaders({
       "Content-Type": "application/json"
     });
     let postParams = JSON.stringify({
-      correo: correo,
-      contrasena: contrasena,
+      id_casarural: id_casarural,
+      dni: dni,
+      telefono: telefono,
+      direccion: direccion,
+      localidad: localidad,
+      cp: cp,
+      plazas: plazas,
+      fechaentrada: fechaentrada,
+      fechasalida: fechasalida,
+      comentario: comentario,
+      token: token,
     });
 
-    this.navegacionUrl = "http://localhost/alrur/usuarios/comprobar_propietario.php";
+    // console.log(postParams);
+
+    this.navegacionUrl = "http://localhost/alrur/alojamientos/alquilar_alojamiento.php";
     return this.http.post(this.navegacionUrl, postParams, { headers: headers })
       .pipe(map(
         data => {

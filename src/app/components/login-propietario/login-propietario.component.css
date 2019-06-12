@@ -1,0 +1,13 @@
+.contenido{
+    margin-top: 40px;
+}
+.principal{
+    text-align: center;
+}
+.entrar{
+    width: 80%;
+    margin-left: 10%;
+}
+.pointer{
+    cursor: pointer;
+}

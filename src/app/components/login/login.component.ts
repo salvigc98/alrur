@@ -1,14 +1,15 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog,MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog,MatDialogRef, MatSnackBar} from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
-import { iguales } from '../../shared/must-match-validator/must-match-validator.component';
+import { iguales } from '../shared/must-match-validator/must-match-validator.component';
 
 // Servicios
 
-import { ComprobarViajeroService } from '../../../servicios/comprobar-viajero.service';
-import { RegistrarViajeroService } from '../../../servicios/registrar-viajero.service';
-import { RecuperarContrasenaService } from '../../../servicios/recuperar-contrasena.service';
+import { ComprobarUsuariosService } from '../../servicios/comprobar-usuarios.service';
+import { RegistrarViajeroService } from '../../servicios/registrar-viajero.service';
+import { RecuperarContrasenaService } from '../../servicios/recuperar-contrasena.service';
+
 
 @Component({
   selector: 'app-login',
@@ -17,20 +18,20 @@ import { RecuperarContrasenaService } from '../../../servicios/recuperar-contras
 })
 export class LoginComponent implements OnInit {
 
-  crear:boolean = false;
-  acceder:boolean = true;
-  recuperar:boolean = false;
+  crear = false;
+  acceder = true;
+  recuperar = false;
   formInicio: FormGroup;
   formRegistro: FormGroup;
   formRecuperar: FormGroup;
-  CorreoInicio:string;
-  ContrasenaInicio:string;
-  NombreRegistro:string;
-  ApellidosRegistro:string;
-  ContrasenaRegistro:string;
-  ContrasenaRegistro2:string;
-  CorreoRegistro:string;
-  CorreoRecuperar:string;
+  CorreoInicio: string;
+  ContrasenaInicio: string;
+  NombreRegistro: string;
+  ApellidosRegistro: string;
+  ContrasenaRegistro: string;
+  ContrasenaRegistro2: string;
+  CorreoRegistro: string;
+  CorreoRecuperar: string;
   submitted = false;
   submittedRegistro = false;
   submittedRecuperar = false;
@@ -38,12 +39,12 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
-    public comprobarViajero: ComprobarViajeroService,
+    public comprobarViajero: ComprobarUsuariosService,
     public registrarViajero: RegistrarViajeroService,
     public RecuperarContrasena: RecuperarContrasenaService,
     private snackBar: MatSnackBar,
     private cookieService: CookieService,
-    private dialogRef: MatDialogRef<LoginComponent>,){}
+    private dialogRef: MatDialogRef<LoginComponent>, ) {}
 
   ngOnInit() {
       this.formInicio = this.fb.group({
@@ -85,19 +86,18 @@ export class LoginComponent implements OnInit {
     if (this.formInicio.invalid) {
       return;
   }
-  
-    let CorreoInicio = this.formInicio.value.CorreoInicio;
-    let ContrasenaInicio = this.formInicio.value.ContrasenaInicio;
-    this.comprobarViajero.comprovarViajero(CorreoInicio, ContrasenaInicio)
+    const CorreoInicio = this.formInicio.value.CorreoInicio;
+    const ContrasenaInicio = this.formInicio.value.ContrasenaInicio;
+    this.comprobarViajero.comprovarViajero(CorreoInicio, ContrasenaInicio, 'viajero')
     .subscribe(
-      (data:any) =>{
-        if(data == 'error'){
+      (data: any) => {
+        if (data === 'error') {
           this.snackBar.open('Usuario o contraseña incorrectos', '', {
             duration: 3000,
           });
-        }else{
+        } else {
           this.cookieService.set('token', data[0]['token']);
-          let token = this.cookieService.get('token');
+          const token = this.cookieService.get('token');
           this.dialogRef.close(token);
           this.snackBar.open('Bienvenido a Alrur', '', {
             duration: 3000,
@@ -105,7 +105,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error =>{
-        if(error){
+        if (error) {
         this.snackBar.open('Fallo al conectar con el servidor', '', {
           duration: 3000,
         });
@@ -120,31 +120,31 @@ export class LoginComponent implements OnInit {
     if (this.formRegistro.invalid) {
       return;
   }
-    let NombreRegistro = this.formRegistro.value.NombreRegistro;
-    let ApellidosRegistro = this.formRegistro.value.ApellidosRegistro;
-    let ContrasenaRegistro = this.formRegistro.value.ContrasenaRegistro;
-    let CorreoRegistro = this.formRegistro.value.CorreoRegistro;
+    const NombreRegistro = this.formRegistro.value.NombreRegistro;
+    const ApellidosRegistro = this.formRegistro.value.ApellidosRegistro;
+    const ContrasenaRegistro = this.formRegistro.value.ContrasenaRegistro;
+    const CorreoRegistro = this.formRegistro.value.CorreoRegistro;
     this.registrarViajero.registrarViajero(NombreRegistro, ApellidosRegistro, ContrasenaRegistro, CorreoRegistro)
-    .subscribe((data:any) =>{
-      if(data == 'ya_registrado'){
+    .subscribe((data: any) => {
+      if (data === 'ya_registrado') {
           this.snackBar.open('Usuario ya existente', '', {
           duration: 3000,
         });
       }
-      if(data == 'correo_enviado'){
+      if (data === 'correo_enviado') {
         this.snackBar.open('Se ha enviado un email a su direeción para poder verificar la cuenta', '', {
           duration: 3000,
         });
         this.dialogRef.close();
       }
-      if(data == 'error'){
+      if (data === 'error') {
         this.snackBar.open('Error durante el registro del usuario', '', {
           duration: 3000,
         });
       }
     },
       error =>{
-        if(error){
+        if (error) {
           this.snackBar.open('Fallo al conectar con el servidor', '', {
             duration: 3000,
           });
@@ -152,42 +152,43 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  onSubmitRecuperar(){
+  onSubmitRecuperar() {
     this.submittedRecuperar = true;
 
     if (this.formRecuperar.invalid) {
       return;
   }
 
-    let CorreoRecuperar = this.formRecuperar.value.CorreoRecuperar;
+    const CorreoRecuperar = this.formRecuperar.value.CorreoRecuperar;
     this.RecuperarContrasena.recuperarContrasena(CorreoRecuperar, 'viajero')
-    .subscribe((data:any) =>{
-      if(data == 'correo_enviado'){
+    .subscribe((data: any) => {
+      if (data === 'correo_enviado') {
         this.snackBar.open('Se ha enviado un correo con instrucciones para restablecer la contraseña', '', {
           duration: 3000,
         });
         this.dialogRef.close();
       }
-      if(data == 'error'){
+      if (data === 'error') {
         this.snackBar.open('No existe ningún usuario con el correo proporcionado', '', {
           duration: 3000,
         });
       }
     },
-    error =>{
-      if(error){
+    error => {
+      if (error) {
         this.snackBar.open('Fallo al conectar con el servidor', '', {
           duration: 3000,
         });
       }
     }
-    )}
+    );
+  }
 
   close() {
       this.dialogRef.close();
   }
 
-  crearCuenta(){
+  crearCuenta() {
     this.crear = true;
     this.acceder = false;
     this.recuperar = false;

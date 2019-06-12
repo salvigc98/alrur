@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-// import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { LoginComponent } from '../navbar/login/login.component';
+import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
+
+// Componentes
+
+import { LoginComponent } from '../login/login.component';
 
 // Servicios
 
 import { ListarAlojamientosService } from '../../servicios/listar-alojamientos.service';
-import { ConsultarDisponibilidadService } from '../../servicios/consultar-disponibilidad.service';
-import { ComprobarViajeroService } from '../../servicios/comprobar-viajero.service';
+import { ComprobarUsuariosService } from '../../servicios/comprobar-usuarios.service';
+import { AlquilarCasaService } from '../../servicios/alquilar-casa.service';
 
 @Component({
   selector: 'app-alquilar-casarural',
@@ -36,15 +38,15 @@ export class AlquilarCasaruralComponent implements OnInit {
   cp: number;
   plazas: number;
   token: string;
-  submitted: boolean = false;
-  comparaFechas: boolean = false;
+  submitted = false;
+  comparaFechas = false;
 
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
     public listaralojamiento: ListarAlojamientosService,
-    public consultardisponibilidad: ConsultarDisponibilidadService,
-    public comprobarviajero: ComprobarViajeroService,
+    public alquilarcasa: AlquilarCasaService,
+    public comprobarviajero: ComprobarUsuariosService,
     private fb: FormBuilder,
     private cookieService: CookieService,
     private snackBar: MatSnackBar,
@@ -53,30 +55,25 @@ export class AlquilarCasaruralComponent implements OnInit {
   ngOnInit() {
 
     this.token = this.cookieService.get('token');
-    console.log(this.token);
     this.route.params.subscribe(
       data => {
         this.id_casarural = data.id_casarural;
       }
-    )
+    );
     this.listaralojamiento.listarAlojamiento(this.id_casarural)
     .subscribe(
       data =>{
         this.alojamiento = data[0];
-        console.log(this.alojamiento);
       },
       error =>{
-        console.log(error);
       });
 
     this.listaralojamiento.listarAlojamientoImagenes(this.id_casarural)
     .subscribe(
       data =>{
         this.imagenes = data;
-        console.log(this.imagenes);
       },
       error =>{
-        console.log(error);
       });
 
     this.formdisp = this.fb.group({
@@ -101,7 +98,6 @@ export class AlquilarCasaruralComponent implements OnInit {
 
     const dialogConfig = new MatDialogConfig();
 
-    // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
     dialogConfig.width = '350px';
@@ -115,7 +111,7 @@ export class AlquilarCasaruralComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
     data => {
-      if (data != undefined){
+      if (data !== undefined) {
     this.token = data;
       }
     }
@@ -123,77 +119,68 @@ export class AlquilarCasaruralComponent implements OnInit {
 }
 
   consultarDisp() {
-    // console.log(this.formdisp.value);
-    // let token = this.cookieService.get('token');
-
-    // console.log(this.fechaentradavalue);
 
     this.submitted = true;
 
     this.fechaentradavalue = this.formdisp.getRawValue().fechaentrada;
     this.fechasalidavalue = this.formdisp.getRawValue().fechasalida;
 
-    if (this.formdisp.invalid || this.formdisp.getRawValue().fechaentrada == '' || this.formdisp.getRawValue().fechasalida == '') {
-      console.log('return');
+    if (this.formdisp.invalid || this.formdisp.getRawValue().fechaentrada === '' || this.formdisp.getRawValue().fechasalida === '') {
       return;
   }
 
     if (this.fechaentradavalue >= this.fechasalidavalue) {
       this.comparaFechas = true;
       return;
-  }else{
+  } else {
     this.comparaFechas = false;
   }
-    let comentario = this.formdisp.value.comentario;
-    let dni = this.formdisp.value.dni;
-    let telefono = this.formdisp.value.telefono;
-    let direccion = this.formdisp.value.direccion;
-    let localidad = this.formdisp.value.localidad;
-    let cp = this.formdisp.value.cp;
-    let plazas = this.formdisp.value.plazas;
+    const comentario = this.formdisp.value.comentario;
+    const dni = this.formdisp.value.dni;
+    const telefono = this.formdisp.value.telefono;
+    const direccion = this.formdisp.value.direccion;
+    const localidad = this.formdisp.value.localidad;
+    const cp = this.formdisp.value.cp;
+    const plazas = this.formdisp.value.plazas;
     this.fechaentradavalue = formatDate(this.fechaentradavalue, 'yyyy-MM-dd', 'en-US');
     this.fechasalidavalue = formatDate(this.fechasalidavalue, 'yyyy-MM-dd', 'en-US');
 
-    this.comprobarviajero.comprovarViajeroConectado(this.token)
+    this.comprobarviajero.comprovarViajeroConectado(this.token, 'conectado')
     .subscribe(
-      (data: any) =>{
-        console.log(data);
-        if(data == 0){
+      (data: any) => {
+        if (data === 0) {
         this.openDialogViajero();
         }
-        if(data == 1){
+        if (data === 1) {
 
 // tslint:disable-next-line: max-line-length
-          this.consultardisponibilidad.consultarDisponibilidad(this.id_casarural, dni, telefono, direccion, localidad, cp, plazas, this.fechaentradavalue, this.fechasalidavalue, comentario, this.token)
+          this.alquilarcasa.AlquilarCasa(this.id_casarural, dni, telefono, direccion, localidad, cp, plazas, this.fechaentradavalue, this.fechasalidavalue, comentario, this.token)
           .subscribe(
             (data: string) => {
-              if(data == 'correo_enviado'){
+              if (data === 'correo_enviado') {
                 this.snackBar.open('Se ha enviado un correo con los datos del alquiler al propietario de la casa', '', {
                   duration: 3000,
                 });
               }
-              if(data == 'error'){
+              if (data === 'error') {
                 this.snackBar.open('Hubo un error mientras se enviaban lo datos', '', {
                   duration: 3000,
                 });
               }
             },
-            error =>{
+            error => {
               this.snackBar.open('Fallo al conectar con el servidor', '', {
                 duration: 3000,
               });
             }
-          )
-          // console.log(fechaEntrada);
+          );
         }
-        if(data == 'error'){
-          console.log('error');
+        if (data === 'error') {
         }
       },
-      error =>{
-        console.log(error);
+      error => {
       }
-    )
+    );
   }
 
 }

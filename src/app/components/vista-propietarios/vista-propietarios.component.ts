@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { EliminarAlojamientoComponent } from '../shared/eliminar-alojamiento/eliminar-alojamiento.component';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { EliminarAlojamientoComponent } from '../eliminar-alojamiento/eliminar-alojamiento.component';
 
 // Servicios
 
@@ -18,24 +18,22 @@ import { EliminarAlojamientoService } from '../../servicios/eliminar-alojamiento
 export class VistaPropietariosComponent implements OnInit {
 
   alojamientos: any;
-  token: any;
+  token: string;
 
   constructor(
-    private router:Router,
+    private router: Router,
     private dialog: MatDialog,
     private cookieService: CookieService,
     public lisarAlojamiento: ListarAlojamientosService,
     public eliminaralojamiento: EliminarAlojamientoService,
     ) { }
 
-    listarCasasRurales(token){
+    listarCasasRurales(token) {
       this.lisarAlojamiento.listarAlojamientoPropietario(token)
-      .subscribe(data =>{
+      .subscribe(data => {
         this.alojamientos = data;
-        console.log(this.alojamientos);
       },
-      error =>{
-        console.log(error);
+      error => {
       });
     }
 
@@ -43,11 +41,6 @@ export class VistaPropietariosComponent implements OnInit {
     this.token = this.cookieService.get('token');
     this.listarCasasRurales(this.token);
   }
-
-//   openDialogViajero() {
-
-   
-// }
 
   anadirCasa() {
     this.router.navigate(['/', 'anadirAlojamiento']);
@@ -57,7 +50,6 @@ export class VistaPropietariosComponent implements OnInit {
 
     const dialogConfig = new MatDialogConfig();
 
-    // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
     dialogConfig.width = '200px';
@@ -71,16 +63,14 @@ export class VistaPropietariosComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
     data => {
-    //  console.log(data);
-    if (data == 'si'){
+    if (data === 'si') {
       this.eliminaralojamiento.eliminarAlojamiento(id_casarural)
-      .subscribe((data:any) =>{
-        if(data == 'exito'){
-          console.log(data)
+      .subscribe((data:any) => {
+        if (data === 'exito') {
           this.listarCasasRurales(this.token);
         }
       },
-      error =>{
+      error => {
         console.log(error);
       });
     }

@@ -9,15 +9,15 @@ import { CookieService } from 'ngx-cookie-service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginComponent } from './components/navbar/login/login.component';
-import { LoginPropietarioComponent } from './components/navbar/login-propietario/login-propietario.component';
+// import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoginComponent } from './components/login/login.component';
+import { LoginPropietarioComponent } from './components/login-propietario/login-propietario.component';
 // import { MustMatchValidatorComponent } from './components/shared/must-match-validator/must-match-validator.component';
 import { VistaPropietariosComponent } from './components/vista-propietarios/vista-propietarios.component';
 import { AnadirAlojamientoComponent } from './components/anadir-alojamiento/anadir-alojamiento.component';
 import { AlquilarCasaruralComponent } from './components/alquilar-casarural/alquilar-casarural.component';
 import { RecuperarContrasenaComponent } from './components/recuperar-contrasena/recuperar-contrasena.component';
-import { EliminarAlojamientoComponent } from './components/shared/eliminar-alojamiento/eliminar-alojamiento.component';
+import { EliminarAlojamientoComponent } from './components/eliminar-alojamiento/eliminar-alojamiento.component';
 // import { RegistroComponent } from './components/navbar/registro/registro.component';
 
 // // import { Dialogo } from './components/navbar/navbar.component'
@@ -60,7 +60,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
+    // NavbarComponent,
     // Dialogo,
     LoginComponent,
     // RegistroComponent,
