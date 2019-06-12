@@ -24,8 +24,10 @@ export class AlquilarCasaruralComponent implements OnInit {
   alojamiento = [];
   imagenes: any;
   formdisp: FormGroup;
-  fechaentrada: any;
-  fechasalida: any;
+  fechaentrada: any = '';
+  fechasalida: any = '';
+  fechaentradavalue: any = '';
+  fechasalidavalue: any = '';
   comentario: string;
   dni: string;
   telefono: number;
@@ -34,6 +36,8 @@ export class AlquilarCasaruralComponent implements OnInit {
   cp: number;
   plazas: number;
   token: string;
+  submitted: boolean = false;
+  comparaFechas: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +47,7 @@ export class AlquilarCasaruralComponent implements OnInit {
     public comprobarviajero: ComprobarViajeroService,
     private fb: FormBuilder,
     private cookieService: CookieService,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -75,8 +80,8 @@ export class AlquilarCasaruralComponent implements OnInit {
       });
 
     this.formdisp = this.fb.group({
-        fechaentrada: [this.fechaentrada, [Validators.required]],
-        fechasalida: [this.fechasalida, [Validators.required]],
+        fechaentrada: [{value: this.fechaentrada, disabled: true}, [Validators.required]],
+        fechasalida: [{value: this.fechasalida, disabled: true}, [Validators.required]],
         dni: [this.dni, [Validators.required]],
         telefono: [this.telefono, [Validators.required]],
         direccion: [this.direccion, [Validators.required]],
@@ -85,6 +90,11 @@ export class AlquilarCasaruralComponent implements OnInit {
         plazas: [this.plazas, [Validators.required]],
         comentario: [this.comentario],
       });
+  }
+
+
+  get f() {
+    return this.formdisp.controls;
   }
 
   openDialogViajero() {
@@ -101,16 +111,39 @@ export class AlquilarCasaruralComponent implements OnInit {
   };
 
 
-  const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
+    const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
 
-
+    dialogRef.afterClosed().subscribe(
+    data => {
+      if (data != undefined){
+    this.token = data;
+      }
+    }
+);
 }
 
   consultarDisp() {
     // console.log(this.formdisp.value);
     // let token = this.cookieService.get('token');
-    let fechaEntrada = this.formdisp.value.fechaentrada;
-    let fechaSalida = this.formdisp.value.fechasalida;
+
+    // console.log(this.fechaentradavalue);
+
+    this.submitted = true;
+
+    this.fechaentradavalue = this.formdisp.getRawValue().fechaentrada;
+    this.fechasalidavalue = this.formdisp.getRawValue().fechasalida;
+
+    if (this.formdisp.invalid || this.formdisp.getRawValue().fechaentrada == '' || this.formdisp.getRawValue().fechasalida == '') {
+      console.log('return');
+      return;
+  }
+
+    if (this.fechaentradavalue >= this.fechasalidavalue) {
+      this.comparaFechas = true;
+      return;
+  }else{
+    this.comparaFechas = false;
+  }
     let comentario = this.formdisp.value.comentario;
     let dni = this.formdisp.value.dni;
     let telefono = this.formdisp.value.telefono;
@@ -118,25 +151,37 @@ export class AlquilarCasaruralComponent implements OnInit {
     let localidad = this.formdisp.value.localidad;
     let cp = this.formdisp.value.cp;
     let plazas = this.formdisp.value.plazas;
-    fechaEntrada = formatDate(fechaEntrada, 'yyyy-MM-dd', 'en-US');
-    fechaSalida = formatDate(fechaSalida, 'yyyy-MM-dd', 'en-US');
+    this.fechaentradavalue = formatDate(this.fechaentradavalue, 'yyyy-MM-dd', 'en-US');
+    this.fechasalidavalue = formatDate(this.fechasalidavalue, 'yyyy-MM-dd', 'en-US');
 
     this.comprobarviajero.comprovarViajeroConectado(this.token)
     .subscribe(
       (data: any) =>{
-        // console.log(data);
+        console.log(data);
         if(data == 0){
         this.openDialogViajero();
         }
         if(data == 1){
 
-          this.consultardisponibilidad.consultarDisponibilidad(this.id_casarural, dni, telefono, direccion, localidad, cp, plazas, fechaEntrada, fechaSalida, comentario, this.token)
+// tslint:disable-next-line: max-line-length
+          this.consultardisponibilidad.consultarDisponibilidad(this.id_casarural, dni, telefono, direccion, localidad, cp, plazas, this.fechaentradavalue, this.fechasalidavalue, comentario, this.token)
           .subscribe(
-            data => {
-              console.log(data);
+            (data: string) => {
+              if(data == 'correo_enviado'){
+                this.snackBar.open('Se ha enviado un correo con los datos del alquiler al propietario de la casa', '', {
+                  duration: 3000,
+                });
+              }
+              if(data == 'error'){
+                this.snackBar.open('Hubo un error mientras se enviaban lo datos', '', {
+                  duration: 3000,
+                });
+              }
             },
             error =>{
-              console.log(error);
+              this.snackBar.open('Fallo al conectar con el servidor', '', {
+                duration: 3000,
+              });
             }
           )
           // console.log(fechaEntrada);

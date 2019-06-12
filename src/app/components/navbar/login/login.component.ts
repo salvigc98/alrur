@@ -97,7 +97,8 @@ export class LoginComponent implements OnInit {
           });
         }else{
           this.cookieService.set('token', data[0]['token']);
-          this.dialogRef.close();
+          let token = this.cookieService.get('token');
+          this.dialogRef.close(token);
           this.snackBar.open('Bienvenido a Alrur', '', {
             duration: 3000,
           });

@@ -27,32 +27,59 @@
             <mat-form-field class="center">
                 <input matInput placeholder="DNI" formControlName="dni" class="input">
             </mat-form-field>
+            <div *ngIf="submitted && f.dni.errors" class="fallo-formulario center">
+              *Este campo es obligatorio
+          </div>
             <mat-form-field class="center">
-                <input matInput placeholder="Teléfono" formControlName="telefono" class="input">
+                <input type="number" matInput placeholder="Teléfono" formControlName="telefono" class="input">
             </mat-form-field>
+            <div *ngIf="submitted && f.telefono.errors" class="fallo-formulario center">
+              *Este campo es obligatorio
+          </div>
             <mat-form-field class="center">
                 <input matInput placeholder="Dirección" formControlName="direccion" class="input">
             </mat-form-field>
+            <div *ngIf="submitted && f.direccion.errors" class="fallo-formulario center">
+              *Este campo es obligatorio
+          </div>
             <mat-form-field class="center">
                 <input matInput placeholder="Localidad" formControlName="localidad" class="input">
             </mat-form-field>
+            <div *ngIf="submitted && f.localidad.errors" class="fallo-formulario center">
+              *Este campo es obligatorio
+          </div>
             <mat-form-field class="center">
-                <input matInput placeholder="CP" formControlName="cp" class="input">
+                <input type="number" matInput placeholder="CP" formControlName="cp" class="input">
             </mat-form-field>
+            <div *ngIf="submitted && f.cp.errors" class="fallo-formulario center">
+              *Este campo es obligatorio
+          </div>
             <mat-form-field class="center">
-                <input matInput placeholder="Nº de plazas" formControlName="plazas" class="input">
+                <input type="number" matInput placeholder="Nº de plazas" formControlName="plazas" class="input">
             </mat-form-field>
+            <div *ngIf="submitted && f.plazas.errors" class="fallo-formulario center">
+              *Este campo es obligatorio
+          </div>
       <mat-form-field class="center">
           <input matInput [matDatepicker]="fechaentrada" placeholder="Fecha de entrada" formControlName="fechaentrada">
           <mat-datepicker-toggle matSuffix [for]="fechaentrada"></mat-datepicker-toggle>
-          <mat-datepicker #fechaentrada></mat-datepicker>
+          <mat-datepicker #fechaentrada disabled="false"></mat-datepicker>
         </mat-form-field>
+        <div *ngIf="submitted && fechaentradavalue == ''" class="fallo-formulario center">
+          *Este campo es obligatorio
+      </div>
         
         <mat-form-field class="center">
-          <input matInput [matDatepicker]="fechasalida" placeholder="Fecha salida" formControlName="fechasalida">
+          <input  matInput [matDatepicker]="fechasalida" placeholder="Fecha salida" formControlName="fechasalida">
           <mat-datepicker-toggle matSuffix [for]="fechasalida"></mat-datepicker-toggle>
-          <mat-datepicker #fechasalida></mat-datepicker>
+          <mat-datepicker #fechasalida disabled="false"></mat-datepicker>
         </mat-form-field>
+        <div *ngIf="submitted && fechasalidavalue == ''" class="fallo-formulario center">
+          *Este campo es obligatorio
+      </div>
+      <div *ngIf="submitted && fechasalidavalue != '' && comparaFechas" class="fallo-formulario center">
+        *Fechas no válidas
+    </div>
 
         <mat-form-field class="example-full-width center">
           <textarea matInput placeholder="Comentarios" formControlName="comentario" ></textarea>
@@ -76,7 +103,7 @@
       <mat-card-title class="center">
         Precio
       </mat-card-title>
-      <mat-card-content class="center">
+      <mat-card-content class="center" style="margin-top: 20px">
         <h5>{{ alojamiento.precio }} €</h5>
       </mat-card-content>
     </mat-card>
@@ -84,7 +111,7 @@
       <mat-card-title class="center">
         Capacidad
       </mat-card-title>
-      <mat-card-content class="center">
+      <mat-card-content class="center" style="margin-top: 20px">
         <h5>{{ alojamiento.plazas }} plazas</h5>
       </mat-card-content>
     </mat-card>

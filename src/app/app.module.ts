@@ -17,6 +17,7 @@ import { VistaPropietariosComponent } from './components/vista-propietarios/vist
 import { AnadirAlojamientoComponent } from './components/anadir-alojamiento/anadir-alojamiento.component';
 import { AlquilarCasaruralComponent } from './components/alquilar-casarural/alquilar-casarural.component';
 import { RecuperarContrasenaComponent } from './components/recuperar-contrasena/recuperar-contrasena.component';
+import { EliminarAlojamientoComponent } from './components/shared/eliminar-alojamiento/eliminar-alojamiento.component';
 // import { RegistroComponent } from './components/navbar/registro/registro.component';
 
 // // import { Dialogo } from './components/navbar/navbar.component'
@@ -70,6 +71,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     AnadirAlojamientoComponent,
     AlquilarCasaruralComponent,
     RecuperarContrasenaComponent,
+    EliminarAlojamientoComponent,
 
   ],
   imports: [
@@ -103,7 +105,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
   bootstrap: [AppComponent],
   entryComponents: [
     LoginComponent,
-    LoginPropietarioComponent
+    LoginPropietarioComponent,
+    EliminarAlojamientoComponent
     // RegistroComponent
   ]
 })

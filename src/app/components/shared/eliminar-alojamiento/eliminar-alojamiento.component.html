@@ -1,0 +1,25 @@
+<!-- <p>
+ ¿Seguro que quieres eliminar este alojamiento?
+</p> -->
+
+<table style="width: 100%">
+  <tr><td colspan="2" style="text-align: center;">
+
+  <h5>
+    ¿Seguro que quieres eliminar este alojamiento?
+  </h5>
+
+</td></tr>
+<tr><td>
+
+  <button mat-button type="submit" class="entrar" style="width: 100%" (click)="comprobarEliminar('si')">
+      Sí
+  </button>
+  </td>
+  <td>
+  <button mat-button type="submit" class="entrar" style="width: 100%" (click)="comprobarEliminar('no')">
+    No
+</button>
+</td></tr>
+
+</table>
