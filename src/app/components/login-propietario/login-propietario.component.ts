@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { iguales } from '../shared/must-match-validator/must-match-validator.component';
 
 import { ComprobarUsuariosService } from '../../servicios/comprobar-usuarios.service';
-import { RegistrarPropietarioService } from '../../servicios/registrar-propietario.service';
+import { RegistrarUsuarioService } from '../../servicios/registrar-usuario.service';
 import { RecuperarContrasenaService } from '../../servicios/recuperar-contrasena.service';
 
 @Component({
@@ -39,7 +39,7 @@ export class LoginPropietarioComponent implements OnInit {
     private fb: FormBuilder,
     public dialog: MatDialog,
     public ComprobarPropietario: ComprobarUsuariosService,
-    public registrarPropietario: RegistrarPropietarioService,
+    public registrarUsuario: RegistrarUsuarioService,
     public recuperarContrasena: RecuperarContrasenaService,
     private snackBar: MatSnackBar,
     private cookieService: CookieService,
@@ -131,7 +131,7 @@ export class LoginPropietarioComponent implements OnInit {
     const TelefonoRegistro = this.formRegistro.value.TelefonoRegistro;
     const CorreoRegistro = this.formRegistro.value.CorreoRegistro;
 // tslint:disable-next-line: max-line-length
-    this.registrarPropietario.registrarPropietario(NombreRegistro, NifRegistro, ContrasenaRegistro, DireccionRegistro, TelefonoRegistro, CorreoRegistro)
+    this.registrarUsuario.registrarPropietario(NombreRegistro, NifRegistro, ContrasenaRegistro, DireccionRegistro, TelefonoRegistro, CorreoRegistro, 'propietario')
     .subscribe((data: any) => {
       if (data === 'ya_registrado') {
           this.snackBar.open('Usuario ya existente', '', {

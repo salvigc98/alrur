@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-lg navbar-dark bg-success">
+<div class="navbar navbar-expand-lg navbar-dark bg-success personnavbar">
   <div class="mx-auto center" >
     <h1 style="float: left">{{ alojamiento.nombre }}</h1> <span style="bottom: 0;">({{ alojamiento.municipio }}, {{alojamiento.provincia}})</span>
     
@@ -16,7 +16,7 @@
 </div>
 
 <div class="formdisp">  
-    <div class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="navbar navbar-expand-lg navbar-dark bg-success personnavbar2">
         <div class="mx-auto center" >
           <h5>Contactar</h5> 
         </div>
@@ -54,7 +54,7 @@
               *Este campo es obligatorio
           </div>
             <mat-form-field class="center">
-                <input type="number" matInput placeholder="Nº de plazas" formControlName="plazas" class="input">
+                <input type="number" matInput placeholder="Ocupantes" formControlName="plazas" class="input">
             </mat-form-field>
             <div *ngIf="submitted && f.plazas.errors" class="fallo-formulario center">
               *Este campo es obligatorio

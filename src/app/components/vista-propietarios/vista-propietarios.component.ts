@@ -52,8 +52,8 @@ export class VistaPropietariosComponent implements OnInit {
 
     dialogConfig.autoFocus = true;
 
-    dialogConfig.width = '200px';
-    dialogConfig.height = '200px';
+    dialogConfig.width = '480px';
+    dialogConfig.height = '150px';
 
     dialogConfig.data = {
   };

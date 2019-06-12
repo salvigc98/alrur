@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-lg navbar-dark bg-success">
+<div class="navbar navbar-expand-lg navbar-dark bg-success personnavbar">
   <h1 class="mx-auto">Añadir nuevo alojamiento</h1>
 </div>
 
@@ -124,7 +124,7 @@
 <div class="divimagenes">
     <div>
 
-        <img *ngFor='let url of urls' [src]="url" height="200px" width="100%">
+        <img *ngFor='let url of urls' [src]="url" height="200px" width="100%" style="margin-top: 10px">
 
         <div *ngIf="submitted && urls.length == 0" class="fallo-formulario">
             *Debe de haber como mínimo una imagen

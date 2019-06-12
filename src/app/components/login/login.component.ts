@@ -7,7 +7,7 @@ import { iguales } from '../shared/must-match-validator/must-match-validator.com
 // Servicios
 
 import { ComprobarUsuariosService } from '../../servicios/comprobar-usuarios.service';
-import { RegistrarViajeroService } from '../../servicios/registrar-viajero.service';
+import { RegistrarUsuarioService } from '../../servicios/registrar-usuario.service';
 import { RecuperarContrasenaService } from '../../servicios/recuperar-contrasena.service';
 
 
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     public dialog: MatDialog,
     public comprobarViajero: ComprobarUsuariosService,
-    public registrarViajero: RegistrarViajeroService,
+    public registrarUsuario: RegistrarUsuarioService,
     public RecuperarContrasena: RecuperarContrasenaService,
     private snackBar: MatSnackBar,
     private cookieService: CookieService,
@@ -124,7 +124,7 @@ export class LoginComponent implements OnInit {
     const ApellidosRegistro = this.formRegistro.value.ApellidosRegistro;
     const ContrasenaRegistro = this.formRegistro.value.ContrasenaRegistro;
     const CorreoRegistro = this.formRegistro.value.CorreoRegistro;
-    this.registrarViajero.registrarViajero(NombreRegistro, ApellidosRegistro, ContrasenaRegistro, CorreoRegistro)
+    this.registrarUsuario.registrarViajero(NombreRegistro, ApellidosRegistro, ContrasenaRegistro, CorreoRegistro, 'viajero')
     .subscribe((data: any) => {
       if (data === 'ya_registrado') {
           this.snackBar.open('Usuario ya existente', '', {

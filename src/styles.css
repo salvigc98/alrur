@@ -75,3 +75,21 @@
   background-color:#3D4EAE;
   color: aliceblue;
 }
+
+.invert-mat-button{
+  /* margin-top: 35px; */
+  font-size: 20px;
+  background-color: aliceblue;
+  color: #3D4EAE;
+  border: 1px solid #3D4EAE;
+}
+
+
+.personnavbar{
+  background-color: #7E89 !important;
+  height: 100px !important;
+}
+
+.personnavbar2{
+  background-color: #7E89 !important;
+}

@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-lg navbar-dark bg-success">
+<div class="navbar navbar-expand-lg navbar-dark bg-success personnavbar">
   
     <div class="buscador center">
     <form [formGroup]="formfiltrar" (ngSubmit)="filtrarCasas()">
@@ -18,7 +18,7 @@
             </mat-form-field>
           </td>
           <td>
-            <h6 style="margin-top: 15px; color:#3D4EAE" class="center">Precio máximo</h6>
+            <h6 style="margin-top: 15px;" class="center">Precio máximo</h6>
           <mat-slider
           color="primary"
           [invert]="invert"
@@ -62,8 +62,8 @@
         </mat-card-header>
         <img mat-card-image [src]="alojamiento.imagen" height="300px">
         <mat-card-content>
-          <h5 style="text-align: right;">Plazas: {{ alojamiento.plazas}}</h5>
-          <h5 style="text-align: right;">Precio: {{ alojamiento.precio}} €</h5>
+          <h5>Plazas: {{ alojamiento.plazas}}</h5>
+          <h5>Precio: {{ alojamiento.precio}} €</h5>
         </mat-card-content>
         <mat-card-actions>
         </mat-card-actions>
