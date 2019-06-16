@@ -25,7 +25,7 @@
     position: absolute;
     border: 1px solid black;
     width: 300px;
-    height: 950px;
+    height: 850px;
     margin-left: 61%;
     margin-top: 0%;
     top: 0;
@@ -51,11 +51,21 @@
 
   .descripcion{
       width: 40%;
-      height: 300px;
+      /* height: 300px; */
       margin-left: 20%;
       margin-top: 215px;
   }
 
  .cardtittle{
     color: #3D4EAE;
+ }
+
+ .comentario{
+     width: 100%;
+     min-height: 150px;
+     margin-top: 20px;
+     background-color: aliceblue;
+     clear: both;
+     border: 1px solid black;
+     position: relative;
  }

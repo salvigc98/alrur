@@ -1,5 +1,13 @@
 <div class="navbar navbar-expand-lg navbar-dark bg-success personnavbar">
+    <div>
+        <h5 class="icono">
+          Alrur
+        </h5>
+      </div>
   <h1 class="mx-auto">Mis alojamientos</h1>
+  <div style="margin-left: 10%; cursor: pointer;" *ngIf="token != ''" (click)="cerrarSesion()">
+    <h5>cerrar sesión</h5>
+  </div>
 </div>
 <div style="width: 80%; margin-left: 10%; margin-top: 30px;">
 <div class="persondiv" *ngFor="let alojamiento of alojamientos">
@@ -18,10 +26,12 @@
       </mat-card>
 </div>
 
-<div class="persondiv" (click)="anadirCasa()">
-    <mat-card class="example-card" >
-        <img mat-card-image src="../../../assets/iconos/añadir_casa.png" height="440px">
-      </mat-card>
+<div class="persondiv">
+  <mat-card class="example-card" style="height: 455px; cursor: default">
+    <div style="width: 40%; margin-left: 30%; margin-top: 120px">
+      <img mat-card-image src="../../../assets/iconos/añadir_casa.png" (click)="anadirCasa()" style="cursor: pointer">
+    </div>
+    </mat-card>
 </div>
 </div>
 

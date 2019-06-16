@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { formatDate } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 // Componentes
 
@@ -14,6 +15,7 @@ import { LoginComponent } from '../login/login.component';
 import { ListarAlojamientosService } from '../../servicios/listar-alojamientos.service';
 import { ComprobarUsuariosService } from '../../servicios/comprobar-usuarios.service';
 import { AlquilarCasaService } from '../../servicios/alquilar-casa.service';
+import { PublicarComentarioService } from '../../servicios/publicar-comentario.service';
 
 @Component({
   selector: 'app-alquilar-casarural',
@@ -26,6 +28,7 @@ export class AlquilarCasaruralComponent implements OnInit {
   alojamiento = [];
   imagenes: any;
   formdisp: FormGroup;
+  formcom: FormGroup;
   fechaentrada: any = '';
   fechasalida: any = '';
   fechaentradavalue: any = '';
@@ -40,13 +43,16 @@ export class AlquilarCasaruralComponent implements OnInit {
   token: string;
   submitted = false;
   comparaFechas = false;
+  comentarios: any = [];
 
   constructor(
-    private route: ActivatedRoute,
+    private route: ActivatedRoute, 
+    private router: Router,
     private dialog: MatDialog,
     public listaralojamiento: ListarAlojamientosService,
     public alquilarcasa: AlquilarCasaService,
     public comprobarviajero: ComprobarUsuariosService,
+    public comentarioService: PublicarComentarioService,
     private fb: FormBuilder,
     private cookieService: CookieService,
     private snackBar: MatSnackBar,
@@ -76,6 +82,15 @@ export class AlquilarCasaruralComponent implements OnInit {
       error =>{
       });
 
+    this.comentarioService.listarComentarios(this.id_casarural)
+      .subscribe(
+        data => {
+          this.comentarios = data;
+        },
+        error => {
+        }
+      );
+
     this.formdisp = this.fb.group({
         fechaentrada: [{value: this.fechaentrada, disabled: true}, [Validators.required]],
         fechasalida: [{value: this.fechasalida, disabled: true}, [Validators.required]],
@@ -86,6 +101,10 @@ export class AlquilarCasaruralComponent implements OnInit {
         cp: [this.cp, [Validators.required]],
         plazas: [this.plazas, [Validators.required]],
         comentario: [this.comentario],
+      });
+
+    this.formcom = this.fb.group({
+        comentario: [this.comentario, [Validators.required]],
       });
   }
 
@@ -120,13 +139,14 @@ export class AlquilarCasaruralComponent implements OnInit {
 
   consultarDisp() {
 
-    this.submitted = true;
-
     this.fechaentradavalue = this.formdisp.getRawValue().fechaentrada;
     this.fechasalidavalue = this.formdisp.getRawValue().fechasalida;
 
     if (this.formdisp.invalid || this.formdisp.getRawValue().fechaentrada === '' || this.formdisp.getRawValue().fechasalida === '') {
+      this.submitted = true;
       return;
+  }else{
+    this.submitted = false;
   }
 
     if (this.fechaentradavalue >= this.fechasalidavalue) {
@@ -145,7 +165,7 @@ export class AlquilarCasaruralComponent implements OnInit {
     this.fechaentradavalue = formatDate(this.fechaentradavalue, 'yyyy-MM-dd', 'en-US');
     this.fechasalidavalue = formatDate(this.fechasalidavalue, 'yyyy-MM-dd', 'en-US');
 
-    this.comprobarviajero.comprovarViajeroConectado(this.token, 'conectado')
+    this.comprobarviajero.comprobarViajeroConectado(this.token, 'conectado')
     .subscribe(
       (data: any) => {
         if (data === 0) {
@@ -181,6 +201,55 @@ export class AlquilarCasaruralComponent implements OnInit {
       error => {
       }
     );
+  }
+
+  publicarComentario() {
+    if (this.formcom.invalid) {
+      return;
+    }
+
+    const comentario = this.formcom.value.comentario;
+    this.comprobarviajero.comprobarViajeroConectado(this.token, 'conectado')
+    .subscribe(
+      (data: any) => {
+        if (data === 0) {
+        this.openDialogViajero();
+        }
+        if (data === 1) {
+
+          this.comentarioService.comentar(this.token, this.id_casarural, comentario)
+          .subscribe(
+            (data: string) => {
+              if (data === 'exito') {
+                window.location.reload();
+                this.snackBar.open('Se ha publicado el comentario correctamente', '', {
+                  duration: 3000,
+                });
+              }
+              if (data === 'error') {
+                this.snackBar.open('Hubo un error mientras se publicaba el comentario', '', {
+                  duration: 3000,
+                });
+              }
+            },
+            error => {
+              this.snackBar.open('Fallo al conectar con el servidor', '', {
+                duration: 3000,
+              });
+            }
+          );
+        }
+        if (data === 'error') {
+        }
+      },
+      error => {
+      }
+    );
+  }
+
+  cerrarSesion() {
+    this.cookieService.delete('token');
+    this.router.navigate(['/', 'home']);
   }
 
 }

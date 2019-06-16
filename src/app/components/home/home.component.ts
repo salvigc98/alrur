@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 // Componentes
 
@@ -39,16 +40,18 @@ export class HomeComponent implements OnInit {
   plazas: number;
   precio: number;
   provincias: any;
-
+  spinner = true;
+  token: string;
 
   constructor(
-    private router:Router,
+    private router: Router,
     public listaralojamiento: ListarAlojamientosService,
     public dialog: MatDialog,
     private fb: FormBuilder,
     public obtenerProvincias: ObtenerLocalidadesProvinciasService,
     public consultarPrecio: ConsultarPrecioService,
     public filtrarcasas: FiltrarCasasService,
+    private cookieService: CookieService,
   ) { }
 
   openDialogViajero() {
@@ -89,10 +92,15 @@ openDialogPropietario() {
 
 
   ngOnInit() {
+
+    this.token = this.cookieService.get('token');
+
     this.listaralojamiento.listarAlojamientoUsuarios()
     .subscribe(
-      data =>{
+      data => {
+        console.log(data);
         this.alojamientos = data;
+        this.spinner = false;
       },
       error =>{
       });
@@ -139,6 +147,11 @@ openDialogPropietario() {
       error =>{
       }
     )
+  }
+
+  cerrarSesion() {
+    this.cookieService.delete('token');
+    window.location.reload();
   }
 
 }

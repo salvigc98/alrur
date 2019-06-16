@@ -1,5 +1,13 @@
 <div class="navbar navbar-expand-lg navbar-dark bg-success personnavbar">
+    <div>
+        <h5 class="icono">
+          Alrur
+        </h5>
+      </div>
   <h1 class="mx-auto">Añadir nuevo alojamiento</h1>
+  <div style="margin-left: 10%; cursor: pointer;" *ngIf="token != ''" (click)="cerrarSesion()">
+    <h5>cerrar sesión</h5>
+  </div>
 </div>
 
 <form [formGroup]="formNuevoAlojamiento" (ngSubmit)="anadirAlojamiento()">
@@ -7,52 +15,56 @@
   <table style="width: 100%;">
     <tr>
       <td>
-        <label>Nombre</label>
+        <label>Nombre:*</label>
       </td>
       <td>
     <mat-form-field class="personinput">
-      <input matInput type="text" placeholder="Nombre:" formControlName="nombre">
+      <input matInput type="text" placeholder="" formControlName="nombre">
     </mat-form-field>
-    <div *ngIf="submitted && f.nombre.errors" class="fallo-formulario">
-        *Este campo es obligatorio
-    </div>
       </td>
   </tr>
   <tr>
+      <td>
+          <label>Provincia:*</label>
+      </td>
     <td>
     <mat-form-field class="personinput">
-        <mat-label>Provincia</mat-label>
         <mat-select (selectionChange)="cargarLocalidad($event.value)" formControlName="provincia">
           <mat-option *ngFor="let provincia of provincias" [value]="provincia.Id_provincia">{{ provincia.provincia }}</mat-option>
         </mat-select>
     </mat-form-field>
-    <div *ngIf="submitted && f.provincia.errors" class="fallo-formulario">
-        *Este campo es obligatorio
-    </div>
-    </td>
-    <td>
-    <mat-form-field class="personinput">
-        <mat-label>Localidad</mat-label>
-        <mat-select formControlName="localidad">
-          <mat-option *ngFor="let localidad of localidades" [value]="localidad.id_localidad">{{ localidad.municipio }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div *ngIf="submitted && f.localidad.errors" class="fallo-formulario">
-          *Este campo es obligatorio
-      </div>
     </td>
   </tr>
   <tr>
+    <td>
+        <label>Localidad:*</label>
+    </td>
+    <td>
+        <mat-form-field class="personinput">
+            <mat-select formControlName="localidad">
+              <mat-option *ngFor="let localidad of localidades" [value]="localidad.id_localidad">{{ localidad.municipio }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+  </tr>
+  <tr>
       <td>
-        <label>Telefono</label>
+        <label>Dirección:*</label>
       </td>
       <td>
     <mat-form-field class="personinput">
-      <input matInput type="number" placeholder="Telefono:" formControlName="telefono">
+      <input matInput type="text" placeholder="" formControlName="direccion">
     </mat-form-field>
-    <div *ngIf="submitted && f.telefono.errors" class="fallo-formulario">
-        *Este campo es obligatorio
-    </div>
+      </td>
+  </tr>
+  <tr>
+      <td>
+        <label>Telefono:*</label>
+      </td>
+      <td>
+    <mat-form-field class="personinput">
+      <input matInput type="number" placeholder="" formControlName="telefono">
+    </mat-form-field>
       </td>
   </tr>
   <tr>
@@ -61,55 +73,46 @@
       </td>
       <td>
     <mat-form-field class="personinput">
-      <input type="number" matInput type="number" placeholder="2º Telefono:" formControlName="telefono2">
+      <input type="number" matInput type="number" placeholder="" formControlName="telefono2">
     </mat-form-field>
       </td>
   </tr>
   <tr>
       <td>
-        <label>Correo</label>
+        <label>E-mail*:</label>
       </td>
       <td>
     <mat-form-field class="personinput">
-      <input matInput type="text" placeholder="Correo:" formControlName="correo">
+      <input matInput type="text" placeholder="" formControlName="correo">
     </mat-form-field>
-    <div *ngIf="submitted && f.correo.errors" class="fallo-formulario">
-        *Correo no válido
+    <div *ngIf="submitted && f.correo.errors && correoValue !== null" class="fallo-formulario">
+        *E-mail no válido
     </div>
       </td>
   </tr>
   <tr>
     <td>
-      <label>Precio por noche</label>
+      <label>€/noche:*</label>
     </td>
     <td>
   <mat-form-field class="personinput">
-    <input type="number" matInput type="number" placeholder="Precio:" formControlName="precio">
+    <input type="number" matInput type="number" placeholder="" formControlName="precio">
   </mat-form-field>
-  <div *ngIf="submitted && f.precio.errors" class="fallo-formulario">
-      *Este campo es obligatorio
-  </div>
     </td>
 </tr>
 <tr>
   <td>
-    <label>Nº de plazas</label>
+    <label>Nº de plazas:*</label>
   </td>
   <td>
 <mat-form-field class="personinput">
-  <input type="number" matInput type="number" placeholder="Nº de plazas" formControlName="plazas">
+  <input type="number" matInput type="number" placeholder="" formControlName="plazas">
 </mat-form-field>
-<div *ngIf="submitted && f.plazas.errors" class="fallo-formulario">
-    *Este campo es obligatorio
-</div>
   </td>
 </tr>
 <tr>
     <td colspan="2">
         <angular-editor formControlName="descripcion" style="width: 100%" [config]="config"></angular-editor>
-        <div *ngIf="submitted && f.descripcion.errors" class="fallo-formulario">
-            *Este campo es obligatorio
-        </div>
     </td>
   </tr>
   <tr>
@@ -119,6 +122,13 @@
           </button>
       </td>
     </tr>
+    <tr>
+        <td colspan="2">
+            <div class="center" style="margin-top: 20px;" *ngIf="submitted">
+                <h6 class="fallo-formulario center">*Estos campos son obligatorios</h6>
+                </div>
+        </td>
+      </tr>
 </table>
 </div>
 <div class="divimagenes">

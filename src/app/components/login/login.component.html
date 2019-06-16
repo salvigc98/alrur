@@ -25,15 +25,17 @@
             </button>
         </mat-dialog-actions>
     </form>
-    <div class="col-auto" style="margin-top: 50px;">
-        <h4 class="pointer" (click)="crearCuenta()">
-          Crea una cuenta
-        </h4>
+    <br>
+    <mat-divider></mat-divider>
+    <div class="entrar" style="margin-top: 50px;">
+        <button mat-button type="button" class=" invert-mat-button" style="width: 100%" (click)="crearCuenta()">
+          Crear una cuenta
+      </button>
     </div>
-    <div class="col-auto">
-        <h4 class="pointer" (click)="recuperarCuenta()">
-            ¿Olvidaste la contraseña?
-        </h4>
+    <div class="entrar" style="margin-top: 20px">
+        <button mat-button type="button" class="invert-mat-button" style="width: 100%;" (click)="recuperarCuenta()">
+          Recuperar contraseña
+      </button>
     </div>
 </div>
 
@@ -78,7 +80,7 @@
         </mat-dialog-content>
         <mat-dialog-actions>
             <button mat-button type="submit" class="entrar">
-                Registrarse
+                Registrarte
             </button>
         </mat-dialog-actions>
     </form>

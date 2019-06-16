@@ -42,6 +42,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 // For MDB Angular Free
@@ -93,6 +95,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatCardModule,
     MatIconModule,
     MatSlideToggleModule,
+    MatDividerModule,
+    MatProgressSpinnerModule,
     AngularEditorModule,
     CarouselModule,
 

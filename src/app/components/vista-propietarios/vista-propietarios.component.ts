@@ -77,4 +77,10 @@ export class VistaPropietariosComponent implements OnInit {
     }
 );
 }
+
+cerrarSesion() {
+  this.cookieService.delete('token');
+  this.router.navigate(['/', 'home']);
+}
+
 }

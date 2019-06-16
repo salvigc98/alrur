@@ -1,7 +1,16 @@
 <div class="navbar navbar-expand-lg navbar-dark bg-success personnavbar">
+    <div>
+        <h5 class="icono">
+          Alrur
+        </h5>
+      </div>
   <div class="mx-auto center" >
     <h1 style="float: left">{{ alojamiento.nombre }}</h1> <span style="bottom: 0;">({{ alojamiento.municipio }}, {{alojamiento.provincia}})</span>
     
+  </div>
+
+  <div style="margin-left: 10%; cursor: pointer;" *ngIf="token != ''" (click)="cerrarSesion()">
+    <h5>cerrar sesión</h5>
   </div>
 </div>
 
@@ -24,59 +33,35 @@
       <div style="margin-top: 30px;">
         <form [formGroup]="formdisp" (ngSubmit)="consultarDisp()">
             <mat-form-field class="center">
-                <input matInput placeholder="DNI" formControlName="dni" class="input">
+                <input matInput placeholder="DNI*" formControlName="dni" class="input">
             </mat-form-field>
-            <div *ngIf="submitted && f.dni.errors" class="fallo-formulario center">
-              *Este campo es obligatorio
-          </div>
             <mat-form-field class="center">
-                <input type="number" matInput placeholder="Teléfono" formControlName="telefono" class="input">
+                <input type="number" matInput placeholder="Teléfono*" formControlName="telefono" class="input">
             </mat-form-field>
-            <div *ngIf="submitted && f.telefono.errors" class="fallo-formulario center">
-              *Este campo es obligatorio
-          </div>
             <mat-form-field class="center">
-                <input matInput placeholder="Dirección" formControlName="direccion" class="input">
+                <input matInput placeholder="Dirección*" formControlName="direccion" class="input">
             </mat-form-field>
-            <div *ngIf="submitted && f.direccion.errors" class="fallo-formulario center">
-              *Este campo es obligatorio
-          </div>
             <mat-form-field class="center">
-                <input matInput placeholder="Localidad" formControlName="localidad" class="input">
+                <input matInput placeholder="Localidad*" formControlName="localidad" class="input">
             </mat-form-field>
-            <div *ngIf="submitted && f.localidad.errors" class="fallo-formulario center">
-              *Este campo es obligatorio
-          </div>
             <mat-form-field class="center">
-                <input type="number" matInput placeholder="CP" formControlName="cp" class="input">
+                <input type="number" matInput placeholder="CP*" formControlName="cp" class="input">
             </mat-form-field>
-            <div *ngIf="submitted && f.cp.errors" class="fallo-formulario center">
-              *Este campo es obligatorio
-          </div>
             <mat-form-field class="center">
-                <input type="number" matInput placeholder="Ocupantes" formControlName="plazas" class="input">
+                <input type="number" matInput placeholder="Ocupantes*" formControlName="plazas" class="input">
             </mat-form-field>
-            <div *ngIf="submitted && f.plazas.errors" class="fallo-formulario center">
-              *Este campo es obligatorio
-          </div>
       <mat-form-field class="center">
-          <input matInput [matDatepicker]="fechaentrada" placeholder="Fecha de entrada" formControlName="fechaentrada">
+          <input matInput [matDatepicker]="fechaentrada" placeholder="Fecha de entrada*" formControlName="fechaentrada">
           <mat-datepicker-toggle matSuffix [for]="fechaentrada"></mat-datepicker-toggle>
           <mat-datepicker #fechaentrada disabled="false"></mat-datepicker>
-        </mat-form-field>
-        <div *ngIf="submitted && fechaentradavalue == ''" class="fallo-formulario center">
-          *Este campo es obligatorio
-      </div>
+      </mat-form-field>
         
         <mat-form-field class="center">
-          <input  matInput [matDatepicker]="fechasalida" placeholder="Fecha salida" formControlName="fechasalida">
+          <input  matInput [matDatepicker]="fechasalida" placeholder="Fecha de salida*" formControlName="fechasalida">
           <mat-datepicker-toggle matSuffix [for]="fechasalida"></mat-datepicker-toggle>
           <mat-datepicker #fechasalida disabled="false"></mat-datepicker>
         </mat-form-field>
-        <div *ngIf="submitted && fechasalidavalue == ''" class="fallo-formulario center">
-          *Este campo es obligatorio
-      </div>
-      <div *ngIf="submitted && fechasalidavalue != '' && comparaFechas" class="fallo-formulario center">
+      <div *ngIf="comparaFechas" class="fallo-formulario center">
         *Fechas no válidas
     </div>
 
@@ -89,6 +74,9 @@
         </button>
       </div>
       </form>
+      <div class="center" style="margin-top: 20px;" *ngIf="submitted">
+      <h6 class="fallo-formulario center">*Estos campos son obligatorios</h6>
+      </div>
       </div>
       
 </div>
@@ -126,6 +114,43 @@
   <div class="descripcion">
       <p [innerHTML]="alojamiento.descripcion">
       </p>
+      <mat-divider></mat-divider>
+  </div>
+
+
+  <div class="descripcion" style="margin-top: 20px">
+      <h3>Opiniones:</h3>
+      <form [formGroup]="formcom" (ngSubmit)="publicarComentario()">
+          <mat-form-field style="width: 100%;">
+            <textarea  rows="10" maxlength="300" matInput placeholder="Deja un comentario" formControlName="comentario"></textarea>
+          </mat-form-field>
+          <button mat-button type="submit" style="width: 100%">
+              Publicar comentario
+          </button>
+        </form>
+        
+  </div>
+  
+  <div class="descripcion" style="margin-top: 20px">
+      <mat-divider></mat-divider>
+      <div class="comentario" *ngFor="let comentario of comentarios">
+        <div style="width: 15%; float: left;" class="center">
+          <table style="margin-top: 40px">
+            <tr><td>
+              <h5>{{ comentario.nombre }}</h5>
+            </td></tr>
+            <tr><td>
+              <h5>{{ comentario.apellidos }}</h5>
+            </td></tr>
+        </table>
+        </div>
+        <div style="width: 85%; float: right; margin-top: 20px" class="center">
+            <P>{{ comentario.opinion }}</P>
+        </div>
+        <div style="width: 120px; right: 0; bottom: 0; position: absolute;" class="center">
+            <P>{{ comentario.fecha | date:'dd-MM-yyyy' }}</P>
+            </div>
+      </div>
   </div>
 </div>
 

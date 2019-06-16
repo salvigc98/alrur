@@ -1,4 +1,9 @@
 <div class="navbar navbar-expand-lg navbar-dark bg-success personnavbar">
+  <div>
+    <h5 class="icono">
+      Alrur
+    </h5>
+  </div>
   
     <div class="buscador center">
     <form [formGroup]="formfiltrar" (ngSubmit)="filtrarCasas()">
@@ -42,7 +47,7 @@
      
       </div>
   
-      <div style="margin-left: 10%">
+      <div style="margin-left: 10%" *ngIf="token == ''">
       <mat-form-field >
         <mat-label>Iniciar sesión</mat-label>
         <mat-select [(value)]="selected3">
@@ -51,6 +56,10 @@
         </mat-select>
       </mat-form-field>
     </div>
+
+    <div style="margin-left: 10%; cursor: pointer;" *ngIf="token != ''" (click)="cerrarSesion()">
+      <h5>cerrar sesión</h5>
+    </div>
   
     </div>
 <div style="width: 80%; margin-left: 10%; margin-top: 30px;">
@@ -58,7 +67,7 @@
     <mat-card class="example-card" >
         <mat-card-header>
           <mat-card-title>{{ alojamiento.nombre }}</mat-card-title>
-          <mat-card-subtitle>{{ alojamiento.municipio }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ alojamiento.municipio }} ({{alojamiento.provincia}})</mat-card-subtitle>
         </mat-card-header>
         <img mat-card-image [src]="alojamiento.imagen" height="300px">
         <mat-card-content>
@@ -69,8 +78,15 @@
         </mat-card-actions>
       </mat-card>    
 </div>
-<div *ngIf="alojamientos.length == 0">
+<div *ngIf="alojamientos.length == 0 && spinner == false">
   <h1>No se han encontrado resultados</h1>
+</div>
+<div style="margin-left: 46%" *ngIf="spinner">
+  <mat-progress-spinner
+  class="example-margin"
+  color="primary"
+  mode="indeterminate"
+  ></mat-progress-spinner>
 </div>
 </div>
 

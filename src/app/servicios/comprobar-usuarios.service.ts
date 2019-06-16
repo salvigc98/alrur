@@ -33,7 +33,7 @@ export class ComprobarUsuariosService {
       ));
   }
 
-  comprovarViajeroConectado(token: string, accion: string) {
+  comprobarViajeroConectado(token: string, accion: string) {
     const headers: any = new HttpHeaders({
       'Content-Type': 'application/json'
     });
